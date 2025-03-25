@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-14 09:56:16.950895",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "marketing_activities",
+  "marketing_amount",
+  "actual_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "marketing_activities",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Marketing Activities",
+   "options": "Marketing Activities",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "marketing_activities.amount",
+   "fieldname": "marketing_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Marketing Amount",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "actual_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Actual Amount",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:28:01.444200",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Marketing Activities",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

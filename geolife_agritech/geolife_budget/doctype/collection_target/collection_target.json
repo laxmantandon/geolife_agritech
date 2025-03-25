@@ -1,0 +1,260 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-02-14 09:56:17.671680",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_dkgey",
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "column_break_iyw9t",
+  "designation",
+  "fiscal_year",
+  "user_email",
+  "section_break_s94un",
+  "dealer_target",
+  "target",
+  "advance_collection_target",
+  "column_break_zahe5",
+  "dealer",
+  "dealer_name",
+  "outstanding",
+  "section_break_grfh8",
+  "apr",
+  "column_break_zphuw",
+  "may",
+  "column_break_zfgue",
+  "jun",
+  "advance_collection_section",
+  "advance_apr",
+  "column_break_gi8un",
+  "advance_may",
+  "column_break_2clkv",
+  "advance_jun",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PT.YY.MM.-.###"
+  },
+  {
+   "fieldname": "section_break_dkgey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Sales Target",
+   "options": "Sales Target",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "label": "Sales Team",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "sales_team.first_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_iyw9t",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales_team.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_team.linked_user",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_s94un",
+   "fieldtype": "Section Break",
+   "label": "Dealer Details"
+  },
+  {
+   "fieldname": "dealer_target",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Dealer Target",
+   "options": "Dealer Target",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "dealer_target.current_total_value",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dealer Sales Target",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "advance_collection_target",
+   "fieldtype": "Float",
+   "label": "Advance Collection Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_zahe5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "dealer_target.dealer_name",
+   "fieldname": "dealer",
+   "fieldtype": "Link",
+   "label": "Dealer",
+   "options": "Dealer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "dealer.dealer_name",
+   "fetch_if_empty": 1,
+   "fieldname": "dealer_name",
+   "fieldtype": "Data",
+   "label": "Dealer Name",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Total Outstanding",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_grfh8",
+   "fieldtype": "Section Break",
+   "label": "Outstanding Collection"
+  },
+  {
+   "default": "0",
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "label": "APR",
+   "read_only_depends_on": "eval: doc.outstanding == 0"
+  },
+  {
+   "fieldname": "column_break_zphuw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "label": "MAY",
+   "read_only_depends_on": "eval: doc.outstanding == 0"
+  },
+  {
+   "fieldname": "column_break_zfgue",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "label": "JUN",
+   "read_only_depends_on": "eval: doc.outstanding == 0"
+  },
+  {
+   "fieldname": "advance_collection_section",
+   "fieldtype": "Section Break",
+   "label": "Advance Collection"
+  },
+  {
+   "fieldname": "advance_apr",
+   "fieldtype": "Float",
+   "label": "APR"
+  },
+  {
+   "fieldname": "column_break_gi8un",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "advance_may",
+   "fieldtype": "Float",
+   "label": "MAY"
+  },
+  {
+   "fieldname": "column_break_2clkv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "advance_jun",
+   "fieldtype": "Float",
+   "label": "JUN"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Collection Target",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:09.863735",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Collection Target",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

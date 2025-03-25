@@ -1,0 +1,201 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-18 11:05:26.167814",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "current_month",
+  "column_break_bahoj",
+  "item_group",
+  "column_break_r8uwd",
+  "uom",
+  "rate",
+  "section_break_1dacl",
+  "last_month_budget_qty",
+  "column_break_a9n4v",
+  "last_month_budget_amt",
+  "section_break_gohi7",
+  "last_month_mrm_plan_qty",
+  "column_break_jdfus",
+  "last_month_mrm_plan_amt",
+  "section_break_ryrzj",
+  "last_month_achievement_qty",
+  "column_break_mvyma",
+  "last_month_achievement_amt",
+  "section_break_2h2ma",
+  "current_month_budget_qty",
+  "column_break_x3jtk",
+  "current_month_budget_amt",
+  "section_break_kpfl3",
+  "current_month_mrm_plan_qty",
+  "column_break_j7pui",
+  "current_month_mrm_plan_amt"
+ ],
+ "fields": [
+  {
+   "fieldname": "current_month",
+   "fieldtype": "Data",
+   "label": "Current Month",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_bahoj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_r8uwd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "item_group.uom",
+   "fetch_if_empty": 1,
+   "fieldname": "uom",
+   "fieldtype": "Data",
+   "label": "UOM",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "item_group.rate",
+   "fetch_if_empty": 1,
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_1dacl",
+   "fieldtype": "Section Break",
+   "label": "Last Month Details"
+  },
+  {
+   "fieldname": "last_month_budget_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Last Month Budget Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_a9n4v",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_month_budget_amt",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Last Month Budget Amt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_gohi7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_month_mrm_plan_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Last Month MRM Plan Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jdfus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_month_mrm_plan_amt",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Last Month MRM Plan Amt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_ryrzj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_month_achievement_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Last Month Achievement Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_mvyma",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_month_achievement_amt",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Last Month Achievement Amt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_2h2ma",
+   "fieldtype": "Section Break",
+   "label": "Current Month Details"
+  },
+  {
+   "fieldname": "current_month_budget_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Month Budget Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_x3jtk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_month_budget_amt",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Month Budget Amt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_kpfl3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_month_mrm_plan_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Month MRM Plan Qty"
+  },
+  {
+   "fieldname": "column_break_j7pui",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_month_mrm_plan_amt",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Month MRM Plan Amt",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:10.456203",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "MRM Sales Planning Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

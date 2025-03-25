@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:dealer",
+ "creation": "2024-02-14 09:56:16.665081",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dealer",
+  "column_break_rxzav",
+  "target",
+  "25_advance_collection",
+  "ob_till_march",
+  "section_break_8cktd",
+  "ob_collection",
+  "advance_collection"
+ ],
+ "fields": [
+  {
+   "fetch_from": "party_name.party_code",
+   "fieldname": "dealer",
+   "fieldtype": "Link",
+   "label": "Dealer",
+   "options": "Dealer",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_rxzav",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "party.target",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "25_advance_collection",
+   "fieldtype": "Float",
+   "label": "25% Advance Collection",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ob_till_march",
+   "fieldtype": "Float",
+   "label": "Outstanding Bill Till March"
+  },
+  {
+   "fieldname": "section_break_8cktd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ob_collection",
+   "fieldtype": "Table",
+   "label": "Outstanding Bill Collection",
+   "options": "Monthly Outstanding Collection"
+  },
+  {
+   "fieldname": "advance_collection",
+   "fieldtype": "Table",
+   "label": "Advance Collection",
+   "options": "Monthly Advance Collection"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:13.563183",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Advance Collection",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

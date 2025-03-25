@@ -1,0 +1,227 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-04-25 17:24:13.225389",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "territory",
+  "multiple_territory",
+  "state",
+  "column_break_15qqa",
+  "naming_series",
+  "posting_date",
+  "designation",
+  "fiscal_year",
+  "target",
+  "month",
+  "month_target",
+  "branch",
+  "section_break_w2ukn",
+  "fetch_all_dealer_details",
+  "items",
+  "section_break_uodzd",
+  "total_last_month_collection_achievement_amt",
+  "column_break_zd15y",
+  "total_current_month_collection_amt",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Target",
+   "options": "Sales Target",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Team",
+   "options": "Geo Mitra",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.user_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.user_email",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Data",
+   "label": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "multiple_territory",
+   "fieldtype": "Table",
+   "label": "Multiple Territory",
+   "options": "MRM Collection Planning Multiple Territory"
+  },
+  {
+   "fetch_from": "sales_target.state",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15qqa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "{user_name}.-MRM-.{month}.-.####",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fetch_from": "sales_target.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "sales_target.target",
+   "fieldname": "target",
+   "fieldtype": "Data",
+   "label": "Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "month_target",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Month Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_w2ukn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fetch_all_dealer_details",
+   "fieldtype": "Button",
+   "label": "Fetch All Dealer Details"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "MRM Collection Planning Item"
+  },
+  {
+   "fieldname": "section_break_uodzd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_last_month_collection_achievement_amt",
+   "fieldtype": "Currency",
+   "label": "Total Last Month Collection Achievement Amt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_zd15y",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_current_month_collection_amt",
+   "fieldtype": "Currency",
+   "label": "Total current month MRM Collection Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "MRM Collection Planning",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:06.848729",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "MRM Collection Planning",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

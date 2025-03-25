@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-21 12:45:07.373495",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "mrm_planning_item"
+ ],
+ "fields": [
+  {
+   "fieldname": "mrm_planning_item",
+   "fieldtype": "Table",
+   "label": "MRM Planning Item",
+   "options": "MRM Planning Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:08.604590",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "MRM Planning",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-02-14 09:56:17.553897",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_dkgey",
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "column_break_iyw9t",
+  "designation",
+  "fiscal_year",
+  "target",
+  "section_break_9ex8z",
+  "fetch_dealer_product_target",
+  "section_break_ibber",
+  "items",
+  "section_break_zrf0x",
+  "total_target",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PT.YY.MM.-.###"
+  },
+  {
+   "fieldname": "section_break_dkgey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Sales Target",
+   "options": "Sales Target"
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "label": "Sales Team",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "sales_team.first_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_team.linked_user",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_iyw9t",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales_team.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "sales_target.target",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_9ex8z",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "fetch_dealer_product_target",
+   "fieldtype": "Button",
+   "label": "Fetch Dealer Product Target"
+  },
+  {
+   "fieldname": "section_break_ibber",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Product Target Items",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_zrf0x",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_target",
+   "fieldtype": "Float",
+   "label": "Total Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Product Target",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:10.128532",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Product Target",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

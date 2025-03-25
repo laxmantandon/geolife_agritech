@@ -1,0 +1,188 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:{user_name}-{fiscal_year}",
+ "creation": "2024-03-04 11:17:45.000470",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_dkgey",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "column_break_iyw9t",
+  "designation",
+  "fiscal_year",
+  "state",
+  "estimated_section",
+  "designation_target_est",
+  "column_break_cqxlu",
+  "ctc_target_est",
+  "column_break_k5z2y",
+  "last_year_target_est",
+  "section_break_swzvl",
+  "highest_target",
+  "column_break_slkdx",
+  "target",
+  "section_break_n1bgk",
+  "ctc_percentage",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": ".user_name.-.fiscal_year."
+  },
+  {
+   "fieldname": "section_break_dkgey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "label": "Sales Team",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "sales_team.sales_person_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_team.linked_user",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_iyw9t",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales_team.custom_designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_team.state",
+   "fetch_if_empty": 1,
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "estimated_section",
+   "fieldtype": "Section Break",
+   "label": "Estimated"
+  },
+  {
+   "default": "0",
+   "fetch_from": "designation.designation_target",
+   "fieldname": "designation_target_est",
+   "fieldtype": "Float",
+   "label": "Designation Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_cqxlu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ctc_target_est",
+   "fieldtype": "Float",
+   "label": "CTC Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_k5z2y",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "last_year_target_est",
+   "fieldtype": "Float",
+   "label": "Last Year Target + 25%",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_swzvl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "highest_target",
+   "fieldtype": "Float",
+   "label": "Highest Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_slkdx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target"
+  },
+  {
+   "fieldname": "section_break_n1bgk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "designation.ctc_target",
+   "fieldname": "ctc_percentage",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "CTC Percentage",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_if_empty": 1,
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sales Target",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:07.485092",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Sales Target",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,174 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-02-14 09:56:18.536287",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "dealer",
+  "dealer_name",
+  "dealer_code",
+  "column_break_byqkf",
+  "fiscal_year",
+  "month",
+  "territory",
+  "section_break_9pigj",
+  "item_group",
+  "column_break_rk2k4",
+  "outstanding",
+  "section_break_gbmxr",
+  "sale_quantity",
+  "return_quantity",
+  "column_break_c4nz5",
+  "sale_amount",
+  "return_amount",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "MT-.month.-.###."
+  },
+  {
+   "fieldname": "dealer",
+   "fieldtype": "Link",
+   "label": "Dealer",
+   "options": "Dealer"
+  },
+  {
+   "fetch_from": "dealer.dealer_name",
+   "fieldname": "dealer_name",
+   "fieldtype": "Data",
+   "label": "Dealer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "dealer.dealer_code",
+   "fieldname": "dealer_code",
+   "fieldtype": "Data",
+   "label": "Dealer Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_byqkf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Int",
+   "label": "Month"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Data",
+   "label": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_9pigj",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Data",
+   "label": "Item Group"
+  },
+  {
+   "fieldname": "column_break_rk2k4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Currency",
+   "label": "Outstanding"
+  },
+  {
+   "fieldname": "section_break_gbmxr",
+   "fieldtype": "Section Break",
+   "label": "Target Details"
+  },
+  {
+   "fieldname": "sale_quantity",
+   "fieldtype": "Float",
+   "label": "Sale Quantity"
+  },
+  {
+   "fieldname": "return_quantity",
+   "fieldtype": "Float",
+   "label": "Return Quantity"
+  },
+  {
+   "fieldname": "column_break_c4nz5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sale_amount",
+   "fieldtype": "Currency",
+   "label": "Sale Amount"
+  },
+  {
+   "fieldname": "return_amount",
+   "fieldtype": "Float",
+   "label": "Return Amount"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Monthly Target",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:10.955107",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Monthly Target",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "select": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

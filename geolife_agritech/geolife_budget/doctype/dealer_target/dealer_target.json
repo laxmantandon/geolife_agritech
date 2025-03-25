@@ -1,0 +1,293 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-02-14 09:56:18.306124",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "territory",
+  "is_market_place",
+  "column_break_b3vz7",
+  "designation",
+  "fiscal_year",
+  "dealer_name",
+  "dealer_full_name",
+  "target",
+  "branch",
+  "market_place",
+  "section_break_shgct",
+  "fetch_all_item_groups",
+  "items",
+  "column_break_olpm0",
+  "dealer_product_target_two_item2",
+  "column_break_juclm",
+  "last_total_qty",
+  "current_total_qty",
+  "column_break_vxgr1",
+  "last_total_value",
+  "current_total_value",
+  "section_break_dj805",
+  "dealer_marketing_activities",
+  "target_status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "dealer_full_name.-.target.-.#\nmarket_place.-.target.-.#"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sales Target",
+   "options": "Sales Target",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "label": "Sales Team",
+   "options": "Geo Mitra"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "sales_target.user_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "sales_target.user_email",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "dealer_name.territory",
+   "fetch_if_empty": 1,
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_standard_filter": 1,
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_market_place",
+   "fieldtype": "Check",
+   "label": "Is Market Place"
+  },
+  {
+   "fieldname": "column_break_b3vz7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "sales_target.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "dealer_name",
+   "fieldtype": "Link",
+   "label": "Dealer Name",
+   "options": "Dealer"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "dealer_name.dealer_name",
+   "fieldname": "dealer_full_name",
+   "fieldtype": "Data",
+   "label": "Dealer Full Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fetch_from": "sales_target.target",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "dealer_name.branch",
+   "fetch_if_empty": 1,
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval: doc.is_market_place == 1;",
+   "fieldname": "market_place",
+   "fieldtype": "Link",
+   "label": "Market Place",
+   "mandatory_depends_on": "eval: doc.is_market_place == 1;",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "section_break_shgct",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fetch_all_item_groups",
+   "fieldtype": "Button",
+   "label": "Fetch All Item Groups"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "allow_on_submit": 1,
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Dealer Product Item"
+  },
+  {
+   "fieldname": "column_break_olpm0",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval:1==0;",
+   "fieldname": "dealer_product_target_two_item2",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Dealer Product Target Two"
+  },
+  {
+   "fieldname": "column_break_juclm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "last_total_qty",
+   "fieldtype": "Float",
+   "label": "Last Total QTY",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "current_total_qty",
+   "fieldtype": "Float",
+   "label": "Current Total QTY",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vxgr1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "last_total_value",
+   "fieldtype": "Float",
+   "label": "Last Total Value",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "current_total_value",
+   "fieldtype": "Float",
+   "label": "Dealer Total Target Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_dj805",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dealer_marketing_activities",
+   "fieldtype": "Table",
+   "label": "Dealer Marketing Activities",
+   "options": "Dealer Marketing Activities"
+  },
+  {
+   "fieldname": "target_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Target Status",
+   "options": "Not yet Started\nDraft\nSubmitted",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Target",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:06.117993",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Target",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

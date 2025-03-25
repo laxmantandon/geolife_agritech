@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-02-14 09:56:18.425117",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_60s6e",
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "column_break_b3vz7",
+  "designation",
+  "fiscal_year",
+  "section_break_as4mt",
+  "product",
+  "qty",
+  "value",
+  "section_break_cn23j",
+  "target",
+  "column_break_olpm0",
+  "total",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "DT.YY.MM.-.###"
+  },
+  {
+   "fieldname": "section_break_60s6e",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "label": "Sales Target",
+   "options": "Sales Target"
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "label": "Sales Team",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "sales_team.first_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_team.linked_user",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_b3vz7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "sales_team.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_as4mt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Link",
+   "label": "Product",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Table",
+   "label": "Qty",
+   "options": "Monthly Qty Distribution",
+   "reqd": 1
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Table",
+   "label": "Value",
+   "options": "Monthly Value Distribution",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_cn23j",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_olpm0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Monthly Breakup",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:12.821902",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Monthly Breakup",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

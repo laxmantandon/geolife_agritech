@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-14 09:56:17.470720",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fiscal_year",
+  "section_break_xcl7b",
+  "apr",
+  "may",
+  "jun"
+ ],
+ "fields": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "section_break_xcl7b",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Apr"
+  },
+  {
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "May"
+  },
+  {
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jun"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:14.059479",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Monthly Outstanding Collection",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

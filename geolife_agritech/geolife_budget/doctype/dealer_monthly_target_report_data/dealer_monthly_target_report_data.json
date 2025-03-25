@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-14 09:56:18.643607",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "api_report_data",
+  "request_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "api_report_data",
+   "fieldtype": "JSON",
+   "label": "Api Report Data"
+  },
+  {
+   "fieldname": "request_url",
+   "fieldtype": "Data",
+   "label": "Request Url"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:14.277078",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Monthly Target Report Data",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

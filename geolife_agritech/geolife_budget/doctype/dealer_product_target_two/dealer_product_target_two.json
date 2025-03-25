@@ -1,0 +1,278 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-14 09:56:17.818121",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "group",
+  "section_break_pxun1",
+  "last_year_target",
+  "column_break_0mmrn",
+  "current_apr_qty",
+  "current_may_qty",
+  "current_jun_qty",
+  "current_jul_qty",
+  "current_aug_qty",
+  "current_sep_qty",
+  "current_oct_qty",
+  "current_nov_qty",
+  "current_dec_qty",
+  "current_jan_qty",
+  "current_feb_qty",
+  "current_mar_qty",
+  "current_year_total_qty",
+  "column_break_rqekg",
+  "current_apr_value",
+  "current_may_value",
+  "current_jun_value",
+  "current_jul_value",
+  "current_aug_value",
+  "current_sep_value",
+  "current_oct_value",
+  "current_nov_value",
+  "current_dec_value",
+  "current_jan_value",
+  "current_feb_value",
+  "current_mar_value",
+  "current_year_total_value",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "section_break_pxun1",
+   "fieldtype": "Section Break",
+   "label": "Monthly Distribution"
+  },
+  {
+   "fieldname": "last_year_target",
+   "fieldtype": "Text Editor",
+   "label": "Last Year Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_0mmrn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_apr_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Apr Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_may_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current May Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jun_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jun Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jul_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jul Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_aug_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Aug Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_sep_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Sep Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_oct_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Oct Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_nov_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Nov Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_dec_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Dec Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jan_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jan Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_feb_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Feb Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_mar_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Mar Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_year_total_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Year Total Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rqekg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_apr_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Apr Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_may_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current May Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jun_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jun Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jul_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jul Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_aug_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Aug Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_sep_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Sep Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_oct_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Oct Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_nov_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Nov Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_dec_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Dec Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_jan_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Jan Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_feb_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Feb Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_mar_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Mar Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_year_total_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Year Total Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Product Target Two",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:28:02.277140",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Dealer Product Target Two",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

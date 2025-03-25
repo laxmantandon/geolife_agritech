@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-14 09:56:16.376928",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fiscal_year",
+  "section_break_yckzs",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "column_break_ymokv",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "column_break_bkzym",
+  "dec",
+  "jan",
+  "feb",
+  "mar"
+ ],
+ "fields": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "section_break_yckzs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Apr"
+  },
+  {
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "May"
+  },
+  {
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jun"
+  },
+  {
+   "fieldname": "jul",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jul"
+  },
+  {
+   "fieldname": "column_break_ymokv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aug",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Aug"
+  },
+  {
+   "fieldname": "sep",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Sep"
+  },
+  {
+   "fieldname": "oct",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Oct"
+  },
+  {
+   "fieldname": "nov",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Nov"
+  },
+  {
+   "fieldname": "column_break_bkzym",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dec",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dec"
+  },
+  {
+   "fieldname": "jan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jan"
+  },
+  {
+   "fieldname": "feb",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Feb"
+  },
+  {
+   "fieldname": "mar",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Mar"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-25 13:27:13.338565",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Monthly Value Distribution",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
