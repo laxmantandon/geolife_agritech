@@ -238,12 +238,14 @@ def send_whatsapp_for_overdue_120days_reminder_attachment_report(geo_mitra):
                             territory_result.append(tr)
 
             report_data = frappe.db.get_all("Customer 120 Day Overdue For Currenct Fiscal Year", filters=[['territory', 'in',territory_result ],['outstanding_amount','>','1']], fields=["*"])
+            report_data_150 = frappe.db.get_all("Customer 150 Day Overdue For Currenct Fiscal Year", filters=[['territory', 'in',territory_result ],['outstanding_amount','>','1']], fields=["*"])
             if report_data:
                 letter_head = frappe.get_doc('Letter Head', 'geolife')
 
                 html = frappe.render_template('templates/overdue_120days_reminder_attachment_report.html',
                     {
                         "data": report_data,
+                        "report_data_150":report_data_150,
                         "title": "Dealer  120 Day Overdue",
                         "letter_head": letter_head,
                         "terms_and_conditions": False,
