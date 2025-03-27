@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-17 11:31:44.156095",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date_of_demonstration",
+  "farmer",
+  "farmer_name",
+  "farmer_first_name",
+  "farmer_last_name",
+  "village",
+  "crop",
+  "column_break_9eda",
+  "date_of_sowing",
+  "demo_plot_size",
+  "plot_size",
+  "nearest_dealer",
+  "section_break_vvan",
+  "demo_type",
+  "items"
+ ],
+ "fields": [
+  {
+   "fieldname": "date_of_demonstration",
+   "fieldtype": "Date",
+   "label": "Date of Demonstration"
+  },
+  {
+   "fieldname": "farmer",
+   "fieldtype": "Link",
+   "label": "Farmer",
+   "options": "My Farmer"
+  },
+  {
+   "fieldname": "farmer_name",
+   "fieldtype": "Data",
+   "label": "Farmer Name"
+  },
+  {
+   "fetch_from": "farmer.first_name",
+   "fieldname": "farmer_first_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Farmer First Name"
+  },
+  {
+   "fetch_from": "farmer.last_name",
+   "fieldname": "farmer_last_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Farmer Last Name"
+  },
+  {
+   "fieldname": "village",
+   "fieldtype": "Link",
+   "label": "Village",
+   "options": "Village"
+  },
+  {
+   "fieldname": "crop",
+   "fieldtype": "Link",
+   "label": "Crop",
+   "options": "Crop"
+  },
+  {
+   "fieldname": "column_break_9eda",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_sowing",
+   "fieldtype": "Date",
+   "label": "Date Of Sowing"
+  },
+  {
+   "fieldname": "demo_plot_size",
+   "fieldtype": "Float",
+   "label": "Demo Plot Size(Treated)"
+  },
+  {
+   "fieldname": "plot_size",
+   "fieldtype": "Float",
+   "label": "Plot Size (Untreated)"
+  },
+  {
+   "fieldname": "nearest_dealer",
+   "fieldtype": "Link",
+   "label": "Nearest Dealer",
+   "options": "Dealer"
+  },
+  {
+   "fieldname": "section_break_vvan",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "demo_type",
+   "fieldtype": "Link",
+   "label": "Demo Type",
+   "options": "Demo Type"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Demo Tracker Items"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-27 21:24:56.589257",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Tracker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-24 11:46:44.872197",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "village",
+  "proof",
+  "upload"
+ ],
+ "fields": [
+  {
+   "fieldname": "village",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Village",
+   "options": "Village"
+  },
+  {
+   "fieldname": "proof",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Proof",
+   "options": "\nJeep With Banner(min 2)\nPasted Wall Poster Photos(min 5)\nPasted Wall Pole Poster(min 5)\nPasted Wall Sticker(min 5)\nLeaflet Distribution Proof (min 10)\nFlange Proof (min 5)\nShop Gate Proof(min 5)\nCutout Proof(min 5)\nShort Clip of Campaign"
+  },
+  {
+   "fieldname": "upload",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Upload"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-27 21:25:00.857925",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Jeep Campaign Proof",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

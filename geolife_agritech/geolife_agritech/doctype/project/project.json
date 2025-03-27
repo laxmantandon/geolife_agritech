@@ -1,0 +1,343 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-12-30 11:39:12.715004",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project_name",
+  "project_type",
+  "custom_description",
+  "expected_start_date",
+  "expected_end_date",
+  "department",
+  "priority",
+  "status",
+  "column_break_5",
+  "percent_complete",
+  "percent_complete_method",
+  "geo_mitra_list",
+  "project_details",
+  "is_active",
+  "day_to_send",
+  "column_break_45",
+  "per_gross_margin",
+  "total_purchase_cost",
+  "total_billable_amount",
+  "margin",
+  "estimated_costing",
+  "first_email",
+  "actual_end_date",
+  "column_break_37",
+  "daily_time_to_send",
+  "second_email",
+  "gross_margin",
+  "message",
+  "users_section",
+  "actual_time",
+  "copied_from",
+  "column_break_28",
+  "naming_series",
+  "total_billed_amount",
+  "column_break_20",
+  "collect_progress",
+  "weekly_time_to_send",
+  "monitor_progress",
+  "total_consumed_material_cost",
+  "actual_start_date",
+  "from_time",
+  "total_sales_amount",
+  "column_break_14",
+  "notes",
+  "total_costing_amount",
+  "to_time",
+  "frequency"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project Type",
+   "options": "Project Type"
+  },
+  {
+   "fieldname": "custom_description",
+   "fieldtype": "Long Text",
+   "in_list_view": 1,
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_start_date",
+   "fieldtype": "Date",
+   "label": "Expected Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_end_date",
+   "fieldtype": "Date",
+   "label": "Expected End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "Medium\nLow\nHigh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nCompleted\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "percent_complete",
+   "fieldtype": "Percent",
+   "label": "% Completed"
+  },
+  {
+   "fieldname": "percent_complete_method",
+   "fieldtype": "Select",
+   "label": "Complete Method",
+   "options": "Manual\nTask Completion\nTask Progress\nTask Weight",
+   "reqd": 1
+  },
+  {
+   "fieldname": "geo_mitra_list",
+   "fieldtype": "Table",
+   "label": "Geo Mitra list",
+   "options": "Project Geo Mitra"
+  },
+  {
+   "fieldname": "project_details",
+   "fieldtype": "Section Break",
+   "label": "Costing and Billing",
+   "options": "fa fa-money"
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Select",
+   "label": "Is Active",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "day_to_send",
+   "fieldtype": "Select",
+   "label": "Day to Send",
+   "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+  },
+  {
+   "fieldname": "column_break_45",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "per_gross_margin",
+   "fieldtype": "Percent",
+   "label": "Gross Margin %"
+  },
+  {
+   "fieldname": "total_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Total Purchase Cost (via Purchase Invoice)"
+  },
+  {
+   "fieldname": "total_billable_amount",
+   "fieldtype": "Currency",
+   "label": "Total Billable Amount (via Timesheet)"
+  },
+  {
+   "fieldname": "margin",
+   "fieldtype": "Section Break",
+   "label": "Margin"
+  },
+  {
+   "fieldname": "estimated_costing",
+   "fieldtype": "Currency",
+   "label": "Estimated Cost",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "first_email",
+   "fieldtype": "Time",
+   "label": "First Email"
+  },
+  {
+   "fieldname": "actual_end_date",
+   "fieldtype": "Date",
+   "label": "Actual End Date (via Timesheet)"
+  },
+  {
+   "fieldname": "column_break_37",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "daily_time_to_send",
+   "fieldtype": "Time",
+   "label": "Daily Time to send"
+  },
+  {
+   "fieldname": "second_email",
+   "fieldtype": "Time",
+   "label": "Second Email"
+  },
+  {
+   "fieldname": "gross_margin",
+   "fieldtype": "Currency",
+   "label": "Gross Margin",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message"
+  },
+  {
+   "fieldname": "users_section",
+   "fieldtype": "Section Break",
+   "label": "Users"
+  },
+  {
+   "fieldname": "actual_time",
+   "fieldtype": "Float",
+   "label": "Actual Time in Hours (via Timesheet)"
+  },
+  {
+   "fieldname": "copied_from",
+   "fieldtype": "Data",
+   "label": "Copied From"
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PROJ-.####"
+  },
+  {
+   "fieldname": "total_billed_amount",
+   "fieldtype": "Currency",
+   "label": "Total Billed Amount (via Sales Invoice)"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "collect_progress",
+   "fieldtype": "Check",
+   "label": "Collect Progress"
+  },
+  {
+   "fieldname": "weekly_time_to_send",
+   "fieldtype": "Time",
+   "label": "Weekly Time to send"
+  },
+  {
+   "fieldname": "monitor_progress",
+   "fieldtype": "Section Break",
+   "label": "Monitor Progress"
+  },
+  {
+   "fieldname": "total_consumed_material_cost",
+   "fieldtype": "Currency",
+   "label": "Total Consumed Material Cost (via Stock Entry)"
+  },
+  {
+   "fieldname": "actual_start_date",
+   "fieldtype": "Date",
+   "label": "Actual Start Date (via Timesheet)"
+  },
+  {
+   "fieldname": "from_time",
+   "fieldtype": "Time",
+   "label": "From Time"
+  },
+  {
+   "fieldname": "total_sales_amount",
+   "fieldtype": "Currency",
+   "label": "Total Sales Amount (via Sales Order)"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "total_costing_amount",
+   "fieldtype": "Currency",
+   "label": "Total Costing Amount (via Timesheet)"
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "label": "To Time"
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency To Collect Progress",
+   "options": "Hourly\nTwice Daily\nDaily\nWeekly"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Geolife Task",
+   "link_fieldname": "custom_project"
+  }
+ ],
+ "modified": "2025-03-27 21:24:58.169173",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Project",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

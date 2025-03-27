@@ -1,0 +1,90 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-11 21:56:53.206275",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "training_video",
+  "progress",
+  "training_course",
+  "training_session",
+  "geo_mitra",
+  "geo_mitra_name",
+  "video_length",
+  "watch_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "training_video",
+   "fieldtype": "Link",
+   "label": "Training Video",
+   "options": "Training Videos"
+  },
+  {
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "label": "Progress"
+  },
+  {
+   "fetch_from": "training_video.course",
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Traning Courses"
+  },
+  {
+   "fetch_from": "training_video.session",
+   "fieldname": "training_session",
+   "fieldtype": "Link",
+   "label": "Training Session",
+   "options": "Training Session"
+  },
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "geo_mitra.sales_person_name",
+   "fieldname": "geo_mitra_name",
+   "fieldtype": "Data",
+   "label": "Geo Mitra Name"
+  },
+  {
+   "fieldname": "video_length",
+   "fieldtype": "Int",
+   "label": "Video Length"
+  },
+  {
+   "fieldname": "watch_time",
+   "fieldtype": "Int",
+   "label": "Watch Time"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-27 21:24:59.619007",
+ "modified_by": "Administrator",
+ "module": "My Training",
+ "name": "Training Video Progress",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

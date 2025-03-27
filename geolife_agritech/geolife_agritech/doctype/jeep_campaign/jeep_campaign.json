@@ -1,0 +1,286 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "creation": "2024-07-24 11:51:31.644249",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "jeep_campaign_name",
+  "dealer_name",
+  "product_name",
+  "agency_name",
+  "sales_person",
+  "column_break_my2h4",
+  "marketing_co_ordinator",
+  "region",
+  "agency_contact",
+  "territory",
+  "column_break_6y38r",
+  "from_date",
+  "to_date",
+  "agency_address",
+  "section_break_f3usq",
+  "dealer_list",
+  "section_break_1vmhn",
+  "farmer_meeting",
+  "section_break_nwjmn",
+  "audio",
+  "pole_poster",
+  "column_break_fi37c",
+  "banner",
+  "sticker",
+  "column_break_giqml",
+  "wall_poster",
+  "flange",
+  "column_break_uoxmn",
+  "leaflet",
+  "shop_gate",
+  "column_break_rexe9",
+  "cutout",
+  "jeep_campaign_proof_section",
+  "jeep_campaign_proof",
+  "villages_covered_route_section",
+  "villages_covered_route",
+  "sample_stock_details_section",
+  "sample_stock_details",
+  "statistical_summary_of_campaign_section",
+  "statistical_summary_of_campaign"
+ ],
+ "fields": [
+  {
+   "fieldname": "jeep_campaign_name",
+   "fieldtype": "Data",
+   "label": "Jeep Campaign Name"
+  },
+  {
+   "fieldname": "dealer_name",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Dealer Name",
+   "options": "Dealer"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Link",
+   "label": "Product Name",
+   "options": "Product"
+  },
+  {
+   "fieldname": "agency_name",
+   "fieldtype": "Data",
+   "label": "Agency Name"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "column_break_my2h4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "marketing_co_ordinator",
+   "fieldtype": "Link",
+   "label": "Marketing Co Ordinator",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Link",
+   "label": "Region",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "agency_contact",
+   "fieldtype": "Data",
+   "label": "Agency Contact Number"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "column_break_6y38r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "agency_address",
+   "fieldtype": "Small Text",
+   "label": "Agenct Address"
+  },
+  {
+   "fieldname": "section_break_f3usq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dealer_list",
+   "fieldtype": "Table",
+   "label": "Dealer List",
+   "options": "Dealer List"
+  },
+  {
+   "fieldname": "section_break_1vmhn",
+   "fieldtype": "Section Break",
+   "label": "Farmer Meeting Jeep Campaign"
+  },
+  {
+   "fieldname": "farmer_meeting",
+   "fieldtype": "Table",
+   "label": "Farmer Meeting Jeep Campaign",
+   "options": "Farmer Meeting Jeep Campaign"
+  },
+  {
+   "fieldname": "section_break_nwjmn",
+   "fieldtype": "Section Break",
+   "label": "POP Material to Be Used"
+  },
+  {
+   "fieldname": "audio",
+   "fieldtype": "Attach",
+   "label": "Audio"
+  },
+  {
+   "fieldname": "pole_poster",
+   "fieldtype": "Attach",
+   "label": "Pole Poster"
+  },
+  {
+   "fieldname": "column_break_fi37c",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "banner",
+   "fieldtype": "Attach",
+   "label": "Banner"
+  },
+  {
+   "fieldname": "sticker",
+   "fieldtype": "Attach",
+   "label": "Sticker"
+  },
+  {
+   "fieldname": "column_break_giqml",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wall_poster",
+   "fieldtype": "Attach",
+   "label": "Wall Poster"
+  },
+  {
+   "fieldname": "flange",
+   "fieldtype": "Attach",
+   "label": "Flange"
+  },
+  {
+   "fieldname": "column_break_uoxmn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leaflet",
+   "fieldtype": "Attach",
+   "label": "Leaflet"
+  },
+  {
+   "fieldname": "shop_gate",
+   "fieldtype": "Attach",
+   "label": "Shop Gate"
+  },
+  {
+   "fieldname": "column_break_rexe9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cutout",
+   "fieldtype": "Attach",
+   "label": "Cutout"
+  },
+  {
+   "fieldname": "jeep_campaign_proof_section",
+   "fieldtype": "Section Break",
+   "label": "Jeep Campaign Proof"
+  },
+  {
+   "fieldname": "jeep_campaign_proof",
+   "fieldtype": "Table",
+   "label": "Jeep Campaign Proof",
+   "options": "Jeep Campaign Proof"
+  },
+  {
+   "fieldname": "villages_covered_route_section",
+   "fieldtype": "Section Break",
+   "label": "Villages Covered Route"
+  },
+  {
+   "fieldname": "villages_covered_route",
+   "fieldtype": "Table",
+   "label": "Villages Covered Route",
+   "options": "Villages Covered- Route"
+  },
+  {
+   "fieldname": "sample_stock_details_section",
+   "fieldtype": "Section Break",
+   "label": "Sample Stock Details"
+  },
+  {
+   "fieldname": "sample_stock_details",
+   "fieldtype": "Table",
+   "label": "Sample Stock Details",
+   "options": "Sample Stock Details"
+  },
+  {
+   "fieldname": "statistical_summary_of_campaign_section",
+   "fieldtype": "Section Break",
+   "label": "Statistical Summary of Campaign"
+  },
+  {
+   "fieldname": "statistical_summary_of_campaign",
+   "fieldtype": "Table",
+   "label": "Statistical Summary of Campaign",
+   "options": "Statistical Summary of Campaign"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-27 21:24:59.891054",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Jeep Campaign",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "jeep_campaign_name"
+}

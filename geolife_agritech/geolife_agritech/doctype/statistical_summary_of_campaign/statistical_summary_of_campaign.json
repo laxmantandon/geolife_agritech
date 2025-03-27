@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-24 11:49:48.057644",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "count_of_farmers_connected",
+  "count_of_pasted_wall_poster",
+  "count_of_leaflet_distributed",
+  "count_of_pasted_pole_poster",
+  "count_of_pasted_sticker",
+  "count_of_flange",
+  "count_of_shop_gate",
+  "count_of_cutout"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "count_of_farmers_connected",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Farmers Connected"
+  },
+  {
+   "fieldname": "count_of_pasted_wall_poster",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Pasted Wall Poster"
+  },
+  {
+   "fieldname": "count_of_leaflet_distributed",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Leaflet Distributed"
+  },
+  {
+   "fieldname": "count_of_pasted_pole_poster",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Pasted Pole Poster"
+  },
+  {
+   "fieldname": "count_of_pasted_sticker",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Pasted Sticker"
+  },
+  {
+   "fieldname": "count_of_flange",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Flange"
+  },
+  {
+   "fieldname": "count_of_shop_gate",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Shop Gate"
+  },
+  {
+   "fieldname": "count_of_cutout",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Count of Cutout"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-27 21:25:00.608994",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Statistical Summary of Campaign",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

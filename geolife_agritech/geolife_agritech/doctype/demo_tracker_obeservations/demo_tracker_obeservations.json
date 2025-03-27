@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-17 11:39:31.466661",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "demo_tracker",
+  "demo_tracker_item",
+  "plot_result",
+  "pests_and_diseases_observed",
+  "soil_health_improving_or_not",
+  "change_in_plant_physical_strength",
+  "column_break_ups6",
+  "pests_or_disease_control",
+  "yield_improvement",
+  "grading_quality_improving_or_not",
+  "taste_of_produce_improving_or_not",
+  "plant_samples_sent_to_geolife_lab_after_harvest"
+ ],
+ "fields": [
+  {
+   "fieldname": "demo_tracker",
+   "fieldtype": "Link",
+   "label": "Demo Tracker",
+   "options": "Demo Tracker"
+  },
+  {
+   "fieldname": "demo_tracker_item",
+   "fieldtype": "Link",
+   "label": "Demo Tracker Item",
+   "options": "Demo Tracker Items"
+  },
+  {
+   "fieldname": "plot_result",
+   "fieldtype": "Select",
+   "label": "Plot Result",
+   "options": "\nGood\nPlot Damage\nBest Results"
+  },
+  {
+   "fieldname": "pests_and_diseases_observed",
+   "fieldtype": "Data",
+   "label": "Pests and Diseases Observed if any"
+  },
+  {
+   "fieldname": "soil_health_improving_or_not",
+   "fieldtype": "Select",
+   "label": "Soil Health Improving or Not",
+   "options": "\nwater holding capacity has increased\nSoil has become softer\nNot Improving"
+  },
+  {
+   "fieldname": "change_in_plant_physical_strength",
+   "fieldtype": "Select",
+   "label": "Change in Plant Physical Strength",
+   "options": "\nNo lodging in treated plants\nNo Any Changes"
+  },
+  {
+   "fieldname": "column_break_ups6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pests_or_disease_control",
+   "fieldtype": "Data",
+   "label": "Pests & Disease Control (Reduced No. of Sprays)"
+  },
+  {
+   "fieldname": "yield_improvement",
+   "fieldtype": "Data",
+   "label": "Yield Improvement (in Kg/acre)"
+  },
+  {
+   "fieldname": "grading_quality_improving_or_not",
+   "fieldtype": "Select",
+   "label": "Grading Quality Improving or Not",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "taste_of_produce_improving_or_not",
+   "fieldtype": "Select",
+   "label": "Taste of Produce Improving or Not",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "plant_samples_sent_to_geolife_lab_after_harvest",
+   "fieldtype": "Select",
+   "label": "Plant Samples sent to Geolife Lab after Harvest",
+   "options": "\nYes\nNo"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-27 21:24:57.160637",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Tracker Obeservations",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,31 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-25 18:14:45.738928",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "warehouse_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse_name",
+   "fieldtype": "Select",
+   "label": "Warehouse Name",
+   "options": "\nCuttack - GAIPL\nKarnataka - GAIPL\nRaipur-Chattisgarh - GAIPL\nAndhra Pradesh - GAIPL\nSecunderabad - GAIPL\nIndore (MP) - GAIPL\nTrichy - GAIPL\nRajasthan  - GAIPL\nRudrapur - GAIPL\nKolkata - GAIPL\nGujrat  - GAIPL\nHaryana-Kar - GAIPL\nPunjab - GAIPL\nPatna-BIHAR - GAIPL\nFertilizer-Pune - GAIPL\nOrganic-Pune - GAIPL\nPesticide-Pune - GAIPL\nAkola (N) - GAIPL\nGZB - GAIPL\nLucknow - GAIPL"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-27 21:25:01.035939",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Multiple Warehouse",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-17 11:36:34.017517",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "demo_type",
+  "crop",
+  "demo_application_sequence",
+  "crop_stage",
+  "product_bundle",
+  "column_break_b21h",
+  "field_day_interval",
+  "application_interval",
+  "field_day_date",
+  "next_application_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "demo_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Demo Type",
+   "options": "Demo Type",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "crop",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Crop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "demo_application_sequence",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Demo Application Sequence",
+   "read_only": 1
+  },
+  {
+   "fieldname": "crop_stage",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Crop Stage",
+   "options": "Crop Stage",
+   "read_only": 1
+  },
+  {
+   "fieldname": "product_bundle",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Product Bundle",
+   "options": "Product Bundle",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_b21h",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "field_day_interval",
+   "fieldtype": "Int",
+   "label": "Field day Interval in Days"
+  },
+  {
+   "fieldname": "application_interval",
+   "fieldtype": "Int",
+   "label": "Application Interval in Days"
+  },
+  {
+   "fieldname": "field_day_date",
+   "fieldtype": "Date",
+   "label": "Field Day Date"
+  },
+  {
+   "fieldname": "next_application_date",
+   "fieldtype": "Date",
+   "label": "Next Application Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-27 21:24:57.361069",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Tracker Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

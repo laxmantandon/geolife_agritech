@@ -1,0 +1,40 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-24 11:45:41.820916",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "farmer_meeting_link"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "farmer_meeting_link",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Farmer Meeting Link",
+   "options": "Farmer Meeting"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-27 21:25:01.714914",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Farmer Meeting Jeep Campaign",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
