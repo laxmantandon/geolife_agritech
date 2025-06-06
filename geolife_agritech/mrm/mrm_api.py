@@ -14,7 +14,7 @@ def clear_dealer_monthly_target():
 
 @frappe.whitelist()
 def dealer_import(doc_name):
-	clear_dealer_monthly_target()
+	# clear_dealer_monthly_target()
 	# frappe.log_error("Whitelist Method dealer import", result_data)
 	my_doc = frappe.get_doc("Dealer Monthly Target Report Data", doc_name)
 	result = json.loads(my_doc.api_report_data)
@@ -55,7 +55,9 @@ def dealer_import(doc_name):
 				monthly_sales.return_quantity = res.get("r_quantity") if res.get("r_quantity") else ''
 				monthly_sales.return_amount = res.get("r_amount") if res.get("r_amount") else ''
 				monthly_sales.insert(ignore_permissions=True, ignore_links=True, ignore_if_duplicate=True, ignore_mandatory=True)
+			frappe.db.commit()
 		except Exception as e:
+			frappe.log_error('dealer_import mrm data', f"{res}")
 			frappe.log_error('dealer_import mrm', f"{e}")
 			pass
 

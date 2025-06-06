@@ -194,19 +194,19 @@
    "fieldname": "zone",
    "fieldtype": "Link",
    "label": "Zone",
-   "options": "Zone"
+   "options": "Territory"
   },
   {
    "fieldname": "area",
    "fieldtype": "Link",
    "label": "Area",
-   "options": "Area"
+   "options": "Territory"
   },
   {
    "fieldname": "headquarter",
    "fieldtype": "Link",
    "label": "Headquarter",
-   "options": "Headquarter"
+   "options": "Territory"
   },
   {
    "fieldname": "territory",
@@ -244,7 +244,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2025-03-21 12:10:47.469740",
+ "modified": "2025-05-30 12:02:44.852875",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Geo Mitra",

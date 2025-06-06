@@ -76,7 +76,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Group",
-   "options": "Item Group"
+   "options": "Item Group",
+   "read_only": 1
   },
   {
    "fieldname": "last_year_target",
@@ -390,8 +391,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Current Year Total Qty",
-   "read_only": 1,
-   "read_only_depends_on": "eval:doc.item_is_disabled == true"
+   "read_only": 1
   },
   {
    "fieldname": "column_break_rqekg",
@@ -503,7 +503,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-25 13:27:06.523467",
+ "modified": "2025-04-16 11:27:35.483339",
  "modified_by": "Administrator",
  "module": "Geolife Budget",
  "name": "Dealer Product Item",

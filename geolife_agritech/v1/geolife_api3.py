@@ -568,7 +568,10 @@ def activity_list():
             "message": "Unauthorised Access",
         }
         return
-    geo_mitra_id = get_geomitra_from_userid(user_email)
+    if frappe.form_dict.get("geo_mitra"):
+        geo_mitra_id = frappe.form_dict.geo_mitra
+    else:
+        geo_mitra_id = get_geomitra_from_userid(user_email)
 
     if frappe.request.method =="GET":
         _data = frappe.form_dict
@@ -843,68 +846,75 @@ def get_attendance1():
 
 @frappe.whitelist()
 def checkuser():
-    api_key  = frappe.request.headers.get("Authorization")[6:21]
-    api_sec  = frappe.request.headers.get("Authorization")[22:]
+    try:
+        api_key  = frappe.request.headers.get("Authorization")[6:21]
+        api_sec  = frappe.request.headers.get("Authorization")[22:]
 
-    user_email = get_user_info(api_key, api_sec)
-    if not user_email:
-        frappe.response["message"] = {
-            "status": True,
-            "message": "Unauthorised Access",
-        }
-        return
-    geo_mitra_id = get_geomitra_from_userid(user_email)
-    # frappe.log_error('Check user',geo_mitra_id)
-    if not geo_mitra_id :
-        frappe.response["message"] = {
-            "status": True,
-            "message": "Geo Mitra not found",
-        }
-        return
-
-    if frappe.request.method =="POST":
-        mdata =[]
-        count_time=0
-        home_data = frappe.db.get_list("Daily Activity", filters=[["Activity Type Multiselect","activity_type","in",["Start Day"]],["Daily Activity","posting_date","=", frappe.utils.nowdate()],["Daily Activity","session_enddate","is","not set"], ["Daily Activity", "geo_mitra" ,"=", geo_mitra_id]], fields=["*"])
-        
-        if home_data:
-            for h in home_data:
-                if h.session_enddate is not None:
-                    start_time_str = h.session_started.strftime("%Y-%m-%d %H:%M:%S")
-                    start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
-                    end_time_str = h.session_enddate.strftime("%Y-%m-%d %H:%M:%S")
-                    end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
-                    time_difference = end_time - start_time
-                    if time_difference :
-                        value = time_difference.total_seconds() / 3600
-                        count_time = count_time+value
-                        if h.session_started.strftime("%Y-%m-%d") != frappe.utils.nowdate():
-                            frappe.response["message"] = {
-                                "status":False,
-                                "message": "big date",
-                            }
-                            return
-            # if count_time >= 8 :
-            #     frappe.response["message"] = {
-            #         "status":False,
-            #         "message": "small",
-            #     }
-            #     return
+        user_email = get_user_info(api_key, api_sec)
+        if not user_email:
             frappe.response["message"] = {
-                "status":True,
-                "message": "",
+                "status": True,
+                "message": "Unauthorised Access",
             }
             return
+        geo_mitra_id = get_geomitra_from_userid(user_email)
+        # frappe.log_error('Check user',geo_mitra_id)
+        if not geo_mitra_id :
+            frappe.response["message"] = {
+                "status": True,
+                "message": "Geo Mitra not found",
+            }
+            return
+
+        if frappe.request.method =="POST":
+            mdata =[]
+            count_time=0
+            home_data = frappe.db.get_list("Daily Activity", filters=[["Activity Type Multiselect","activity_type","in",["Start Day"]],["Daily Activity","posting_date","=", frappe.utils.nowdate()],["Daily Activity","session_enddate","is","not set"], ["Daily Activity", "geo_mitra" ,"=", geo_mitra_id]], fields=["*"])
+            
+            if home_data:
+                for h in home_data:
+                    if h.session_enddate is not None:
+                        start_time_str = h.session_started.strftime("%Y-%m-%d %H:%M:%S")
+                        start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
+                        end_time_str = h.session_enddate.strftime("%Y-%m-%d %H:%M:%S")
+                        end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
+                        time_difference = end_time - start_time
+                        if time_difference :
+                            value = time_difference.total_seconds() / 3600
+                            count_time = count_time+value
+                            if h.session_started.strftime("%Y-%m-%d") != frappe.utils.nowdate():
+                                frappe.response["message"] = {
+                                    "status":False,
+                                    "message": "big date",
+                                }
+                                return
+                # if count_time >= 8 :
+                #     frappe.response["message"] = {
+                #         "status":False,
+                #         "message": "small",
+                #     }
+                #     return
+                frappe.response["message"] = {
+                    "status":True,
+                    "message": "",
+                }
+                return
+            frappe.response["message"] = {
+                    "status":False,
+                    "message": "small",
+                    "data":home_data
+                }
+            return
+        else:
+            frappe.response["message"] = {
+                    "status":True,
+                    "message": "",
+                }
+            return
+    except Exception as e:
         frappe.response["message"] = {
                 "status":False,
-                "message": "small",
-                "data":home_data
-            }
-        return
-    else:
-        frappe.response["message"] = {
-                "status":True,
-                "message": "",
+                "message": "small"
             }
         return
 
@@ -987,8 +997,10 @@ def expenses():
             "message": "Unauthorised Access",
         }
         return
-    
-    geo_mitra_id = get_geomitra_from_userid(user_email)
+    if frappe.form_dict.get("geo_mitra"):
+        geo_mitra_id = frappe.form_dict.geo_mitra
+    else:
+        geo_mitra_id = get_geomitra_from_userid(user_email)
 
 
     if frappe.request.method =="GET":
@@ -1149,7 +1161,7 @@ def expenses():
             }
             return
         except Exception as e:
-            # frappe.log_error('Expense Create',str(e))
+            frappe.log_error('Expense Create',str(e))
             frappe.response["message"] = {
                 "status":True,
                 "message": "Expense Not Created",
@@ -2002,7 +2014,7 @@ def create_farmer():
                 "crop": _data['crop'],
                 "market": _data['market'],
                 "date_of_sowing": _data['data_of_sowing'],
-                "address_data": _data['address_data'] if _data['address_data'] else '',
+                # "address_data": _data['address_data'] if _data['address_data'] else '',
                 
                 "app_installed":False
                 })
@@ -5235,7 +5247,7 @@ def search_product():
             if products:
                 try:
                     response = requests.request("GET", f"{url}/api/method/get_item_details?customer={dealer.dealer_code}&products={json.dumps(products)}&text={text}", headers=headers)
-                    # frappe.log_error("product list erp",json.loads(response.text))
+                    frappe.log_error("product list erp",json.loads(response.text))
 
                     # frappe.log_error("URL",f"{url}/api/method/get_item_details?customer={dealer.dealer_code}&products={json.dumps(products)}")
                     result = json.loads(response.text)
@@ -5247,7 +5259,7 @@ def search_product():
                     }
                     return
                 except Exception as e:
-                    frappe.log_error(e)
+                    frappe.log_error("product list erp error",f"{e}")
                     frappe.response["message"] = {
                         "status":False,
                         "message": "Product not fetch",
@@ -5407,6 +5419,31 @@ def get_accounts_Receiveable_pdf(customer):
 
     return resp.json()
 
+
+def is_base64(string):
+    try:
+        # Remove data URI prefix if present
+        if string.startswith('data:'):
+            string = string.split(',')[1]
+
+        # Check if it's a valid base64 string using regex
+        base64_regex = r'^[A-Za-z0-9+/=]+\Z'
+        if not re.match(base64_regex, string.replace("\n", "").replace("\r", "")):
+            return False
+
+        # Try decoding
+        base64.b64decode(string, validate=True)
+        return True
+    except Exception:
+        return False
+
+
+def is_url(string):
+    url_regex = re.compile(
+        r'^(http|https)://[^\s/$.?#].[^\s]*$', re.IGNORECASE)
+    return re.match(url_regex, string) is not None
+
+
 @frappe.whitelist()
 def uploadFile():
     _data = frappe.request.json
@@ -5415,26 +5452,37 @@ def uploadFile():
     doctype=_data.get('dt')
     docname=_data.get('dn')
     try:
-        filename_ext = f'/home/frappe/frappe-bench/sites/{frappe.local.site}/private/files/{filename}.pdf'
+        filename_ext = f'/home/frappe/frappe-bench/sites/{frappe.local.site}/{file_type}/files/{filename}.pdf'
         base64data = _data.get('data')
-        imgdata = base64.b64decode(base64data)
+        if is_url(base64data):
+            imgdata = base64.b64decode(base64data)
+            frappe.log_error('uploadFile', str(filename_ext))
+
+        elif is_base64(base64data):
+            imgdata = base64.b64decode(base64data.split(",")[1] if "data:" in base64data else base64data)
+            frappe.log_error('uploadFile2', str(filename_ext))
+        else:
+            imgdata = base64.b64decode(base64data)
+            frappe.log_error('uploadFile3', str(filename_ext))
+
+        # imgdata = base64.b64decode(base64data)
         # frappe.log_error('uploadFile1', str(imgdata))
         with open(filename_ext, 'wb') as file:
             file.write(imgdata)
-        # frappe.log_error('uploadFile2', str(filename_ext))
+        frappe.log_error('uploadFile4', str(filename_ext))
 
 
         doc = frappe.get_doc(
             {
             "file_name": f'{filename}.pdf',
-            "is_private":'1',
+            "is_private": '0' if file_type == 'public' else '1',
             "file_url": f'/{file_type}/files/{filename}.pdf',
             "attached_to_doctype": doctype,
             "attached_to_name": docname,
             "doctype": "File",
             }
         )
-        # frappe.log_error('uploadFile3', str(doc))
+        frappe.log_error('uploadFile4', str(doc))
         doc.flags.ignore_permissions = True
         doc.insert()
         frappe.db.commit()
@@ -5944,32 +5992,47 @@ def approve_geo_mitra_attendance():
 
 @frappe.whitelist()
 def upload_file_in_doctype(datas, filename, docname, doctype):
-   for data in datas:
-        try:
-            filename_ext = f'/home/frappe/frappe-bench/sites/{frappe.local.site}/private/files/{filename}.png'
-            base64data = data.replace('data:image/jpeg;base64,', '')
-            imgdata = base64.b64decode(base64data)
-            with open(filename_ext, 'wb') as file:
-                file.write(imgdata)
+    docs=[]
+    try:
+        mfilename = ''
+        if '.' in filename:
+            mfilename = filename
+        else:
+            mfilename = f"{filename}.jpg"
+        for data in datas:
+            try:
 
-            doc = frappe.get_doc(
-                {
-                    "file_name": f'{filename}.png',
-                    "is_private": 1,
-                    "file_url": f'/private/files/{filename}.png',
-                    "attached_to_doctype": doctype if doctype else "Geo Mitra",
-                    "attached_to_name": docname,
-                    "doctype": "File",
-                }
-            )
-            doc.flags.ignore_permissions = True
-            doc.insert()
-            frappe.db.commit()
-            return doc.file_url
+                filename_ext = f'/home/frappe/frappe-bench/sites/{frappe.local.site}/public/files/{mfilename}'
+                base64data = data.replace('data:image/jpeg;base64,', '')
+                imgdata = base64.b64decode(base64data)
+                with open(filename_ext, 'wb') as file:
+                    file.write(imgdata)
 
-        except Exception as e:
-            frappe.log_error('ng_write_file', str(e))
-            return e
+                doc = frappe.get_doc(
+                    {
+                        "file_name": f'{mfilename}',
+                        "is_private": 0,
+                        "file_url": f'/files/{mfilename}',
+                        "attached_to_doctype": doctype if doctype else "Geo Mitra",
+                        "attached_to_name": docname,
+                        "doctype": "File",
+                    }
+                )
+                doc.flags.ignore_permissions = True
+                doc.insert()
+                frappe.db.commit()
+                if len(datas)==1:
+                    return doc.file_url
+                else:
+                    docs.append(doc.file_url)
+            except Exception as err:
+                frappe.log_error('ng_write_file', str(err))
+                return err
+        return docs
+
+    except Exception as e:
+        frappe.log_error('ng_write_file', str(e))
+        return e
 
 
 @frappe.whitelist()
@@ -6290,3 +6353,173 @@ def task_erp():
             'status':False,
             'message':f"{e}"
         }
+
+
+@frappe.whitelist()
+def upload_file_document_in_doctype(datas, filename, docname, doctype):
+   for data in datas:
+        try:
+            file_ext = data.get('ext')
+            base64data = data.get('base64')
+
+            if not file_ext or not base64data:
+                frappe.throw("Invalid file data. Missing extension or base64 content.")
+
+            if "," in base64data:
+                base64data = base64data.split(",")[-1]
+
+            # Define file path
+            file_path = f'/home/frappe/frappe-bench/sites/crop.erpgeolife.com/private/files/{filename}.{file_ext}'
+
+            # Decode and save file
+            file_data = base64.b64decode(base64data)
+            with open(file_path, 'wb') as file:
+                file.write(file_data)
+
+            # Create File document in Frappe
+            doc = frappe.get_doc({
+                "file_name": f"{filename}.{file_ext}",
+                "is_private": 1,
+                "file_url": f"/private/files/{filename}.{file_ext}",
+                "attached_to_doctype": doctype ,
+                "attached_to_name": docname,
+                "doctype": "File",
+            })
+            doc.flags.ignore_permissions = True
+            doc.insert()
+            frappe.db.commit()
+
+            return doc.file_url
+
+        except Exception as e:
+            frappe.log_error('upload_file_document_in_doctype', str(e))
+            return str(e)
+
+
+# def get_base64(file_path):
+#     if not file_path:
+#         return ""
+#     full_path = frappe.get_site_path(file_path.strip("/"))
+#     frappe.log_error(f"{full_path}", f"{os.path.exists(full_path)}")
+#     if os.path.exists(full_path):
+#         with open(full_path, "rb") as f:
+#             return base64.b64encode(f.read()).decode("utf-8")
+#     return ""
+
+
+# def get_base64(file_path):
+#     try:
+#         if not file_path:
+#             return ""
+#         # Try the given path (usually private)
+#         full_path = frappe.get_site_path(file_path.strip("/"))
+#         if not os.path.exists(full_path):
+#             # Try public path if not found in private
+#             public_path = frappe.get_site_path("public/files/" + os.path.basename(file_path))
+#             if os.path.exists(public_path):
+#                 full_path = public_path
+#             else:
+#                 frappe.log_error(f"File not found: {file_path}", "get_base64")
+#                 return ""
+#         with open(full_path, "rb") as f:
+#             return base64.b64encode(f.read()).decode("utf-8")
+#     except Exception as e:
+#         frappe.log_error(f"Error in get_base64 for {file_path}: {str(e)}", "get_base64")
+#         return ""
+def get_base64(file_path):
+    try:
+        if not file_path:
+            return {"base64": "", "file_name": ""}
+        # Try the given path (usually private)
+        full_path = frappe.get_site_path(file_path.strip("/"))
+        file_name = os.path.basename(file_path)
+        if not os.path.exists(full_path):
+            # Try public path if not found in private
+            public_path = frappe.get_site_path("public/files/" + file_name)
+            if os.path.exists(public_path):
+                full_path = public_path
+            else:
+                frappe.log_error(f"File not found: {file_path}", "get_base64")
+                return {"base64": "", "file_name": file_name}
+        with open(full_path, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode("utf-8")
+            return {"base64": encoded, "file_name": file_name}
+    except Exception as e:
+        frappe.log_error(f"Error in get_base64 for {file_path}: {str(e)}", "get_base64")
+        return {"base64": "", "file_name": os.path.basename(file_path) if file_path else ""}
+
+@frappe.whitelist()
+def create_customer_in_erp_from_proposed_dealer(dealer_name):
+    try:
+        doc = frappe.get_doc("Proposed Dealer", dealer_name)
+        geo_mitra = frappe.get_doc("Geo Mitra", doc.get("geo_mitra"))
+
+        payload = {
+            "customer_name": doc.customer_name,
+            "customer_type": doc.customer_type or "Company",
+            "customer_group": doc.customer_group or "All Customer Groups",
+            "territory": doc.territory,
+            "branch": doc.branch,
+            "dealer_type": doc.dealer_type,
+            "email_id": doc.email_id,
+            "mobile_no": doc.mobile_no,
+            "sales_person": geo_mitra.get('dgo_code'),
+            "contact_person_name": doc.contact_person_name,
+            "contact_person_mobile_no": doc.contact_person_mobile_no,
+            "marriage_anniversary": f"{doc.get('marriage_anniversary')}",
+            "date_of_birth": f"{doc.get('date_of_birth')}",
+            "gst_no": doc.gst_no,
+            "pan": doc.pan,
+            "zone": doc.zone,
+            "region": doc.region,
+            "aadhar_no": doc.aadhar_no,
+            "date_of_incorporation":f"{doc.get('date_of_incorporation')}",
+            "cin":doc.cin,
+            "udyog_aadhar_no": doc.udyog_aadhar_no,
+            "market_place_or_tehsil": doc.market_place_or_tehsil,
+            "customer_parent_account": doc.customer_parent_account,
+
+
+            "custom_gst_certificate": get_base64(doc.gst_certificate) or {},
+            "custom_upload_pan_card": get_base64(doc.upload_pan_card or ""),
+            "custom_aadhar_card": get_base64(doc.aadhar_card or ""),
+            "custom_security_blank_cheque_no_1": get_base64(doc.security_blank_cheque_no_1 or ""),
+            "custom_security_blank_cheque_no_2": get_base64(doc.security_blank_cheque_no_2 or ""),
+            "custom_geo_pesticides_license": get_base64(doc.geo_pesticides_license or ""),
+            "custom_geo_fertiliser_license": get_base64(doc.geo_fertiliser_license or ""),
+            "custom_geo_address_proof": get_base64(doc.geo_address_proof or ""),
+            "custom_blank_letter_head": get_base64(doc.blank_letter_head or ""),
+            "custom_geo_bank_statement": get_base64(doc.geo_bank_statement or ""),
+            "custom_geolife_dealership_agreement": get_base64(doc.geolife_dealership_agreement or ""),
+            "custom_dealer_location_image": get_base64(doc.dealer_location_image or ""),
+            "custom_dealer_shop_image": get_base64(doc.dealer_shop_image or "")
+        }
+        url = frappe.db.get_single_value('GeoLife Setting', 'url')
+        apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
+        apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
+        headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
+        url= f"{url}/api/method/geo_v15.geolife_api.create_customer_from_proposed"
+        # url= "https://v15.erpgeolife.com/api/method/geo_v15.geolife_api.create_customer_from_proposed"
+        # headers = {'Authorization': f'token 3809f166c607858:d9737eaff43b7d9','Content-Type': 'application/json'}
+        frappe.log_error("Payload for Customer Creation", payload)
+
+        response = requests.post(
+            url,
+            data= json.dumps(payload),
+            headers=headers
+        )
+        frappe.log_error("Payload for Customer Creation", response.text)
+
+
+        if response.status_code == 200:
+            frappe.msgprint("Customer successfully created in ERPNext")
+            doc.status = "Approved"
+            doc.submit()
+        else:
+            frappe.throw(f"Error: {response.text}")
+
+        return response.json()
+    except Exception as e:
+        frappe.log_error("Error in create_customer_in_erp_from_proposed_dealer", str(e))
+        frappe.throw(f"{str(e)}")
+        return e

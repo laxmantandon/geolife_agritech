@@ -1,0 +1,365 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-05-16 10:46:08.118747",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_name",
+  "contact_person_name",
+  "contact_person_mobile_no",
+  "mobile_no",
+  "branch",
+  "marriage_anniversary",
+  "date_of_birth",
+  "date_of_incorporation",
+  "email_id",
+  "gst_category",
+  "gst_no",
+  "gst_certificate",
+  "tax_category",
+  "pan",
+  "upload_pan_card",
+  "aadhar_no",
+  "aadhar_card",
+  "cin",
+  "udyog_aadhar_no",
+  "zone",
+  "region",
+  "geo_mitra",
+  "customer_parent_account",
+  "column_break_ndzw",
+  "status",
+  "territory",
+  "market_place_or_tehsil",
+  "customer_type",
+  "customer_active_type",
+  "customer_group",
+  "dealer_type",
+  "dealership_agreement_date",
+  "security_blank_cheque_no_1",
+  "security_blank_cheque_no_2",
+  "geo_pesticides_license",
+  "geo_pesticides_license_expiry_date",
+  "geo_fertiliser_license",
+  "geo_fertiliser_license_expiry_date",
+  "geo_address_proof",
+  "blank_letter_head",
+  "geo_bank_statement",
+  "geolife_dealership_agreement",
+  "dealer_location_image",
+  "dealer_shop_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "is_mobile_field": 1,
+   "label": "Customer Name"
+  },
+  {
+   "fetch_from": "geo_mitra.custom_branch",
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "marriage_anniversary",
+   "fieldtype": "Date",
+   "is_mobile_field": 1,
+   "label": "Marriage Anniversary"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "is_mobile_field": 1,
+   "label": "Date Of Birth"
+  },
+  {
+   "fieldname": "date_of_incorporation",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "is_mobile_field": 1,
+   "label": "Date Of Incorporation"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "is_mobile_field": 1,
+   "label": "Whtasapp No",
+   "length": 10
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Email Id"
+  },
+  {
+   "fieldname": "gst_no",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "GST No",
+   "length": 15
+  },
+  {
+   "fieldname": "tax_category",
+   "fieldtype": "Data",
+   "label": "Tax Category"
+  },
+  {
+   "fieldname": "pan",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Pan",
+   "length": 10
+  },
+  {
+   "fetch_from": "geo_mitra.zone",
+   "fieldname": "zone",
+   "fieldtype": "Link",
+   "label": "Zone",
+   "options": "Territory"
+  },
+  {
+   "fetch_from": "geo_mitra.region",
+   "fieldname": "region",
+   "fieldtype": "Link",
+   "label": "Region",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "market_place_or_tehsil",
+   "fieldtype": "Link",
+   "is_mobile_field": 1,
+   "label": "Market Place OR Tehsil",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "cin",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "CIN"
+  },
+  {
+   "fieldname": "gst_category",
+   "fieldtype": "Select",
+   "label": "GST Category",
+   "options": "\nRegistered Regular\nUnregistered"
+  },
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "column_break_ndzw",
+   "fieldtype": "Column Break",
+   "options": "\nNurture Farm\nB2B"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "is_mobile_field": 1,
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "customer_type",
+   "fieldtype": "Select",
+   "label": "Customer Type",
+   "options": "\nIndividual\nCompany\nPartnership\nHUF\nAOP\nTRUST"
+  },
+  {
+   "fieldname": "customer_active_type",
+   "fieldtype": "Select",
+   "label": "Customer Active Type",
+   "options": "Active\nDisabled"
+  },
+  {
+   "fetch_from": "geo_mitra.custom_branch",
+   "fieldname": "customer_group",
+   "fieldtype": "Data",
+   "label": "Customer Group"
+  },
+  {
+   "fetch_from": "geo_mitra.custom_geomitra_type",
+   "fieldname": "dealer_type",
+   "fieldtype": "Select",
+   "label": "Dealer Type"
+  },
+  {
+   "fieldname": "dealership_agreement_date",
+   "fieldtype": "Date",
+   "label": "Dealership Agreement Date"
+  },
+  {
+   "fieldname": "security_blank_cheque_no_1",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Security Blank Cheque No 1"
+  },
+  {
+   "fieldname": "security_blank_cheque_no_2",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": " Security Blank Cheque No 2"
+  },
+  {
+   "fieldname": "geo_pesticides_license",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Geo Pesticides License"
+  },
+  {
+   "fieldname": "geo_fertiliser_license",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Geo Fertiliser License"
+  },
+  {
+   "fieldname": "geo_address_proof",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Address Proof"
+  },
+  {
+   "fieldname": "geo_bank_statement",
+   "fieldtype": "Attach",
+   "is_mobile_field": 1,
+   "label": "Bank Statement"
+  },
+  {
+   "fieldname": "contact_person_name",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Contact Person Name"
+  },
+  {
+   "fieldname": "contact_person_mobile_no",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Mobile Number",
+   "length": 10
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nOnboarding\nPending\nRejected\nApproved\nCancelled"
+  },
+  {
+   "fieldname": "geo_pesticides_license_expiry_date",
+   "fieldtype": "Date",
+   "is_mobile_field": 1,
+   "label": "Pesticides License Expiry  Date"
+  },
+  {
+   "fieldname": "geo_fertiliser_license_expiry_date",
+   "fieldtype": "Date",
+   "is_mobile_field": 1,
+   "label": "Fertiliser License Expiry Date"
+  },
+  {
+   "fieldname": "blank_letter_head",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Blank Letter Head"
+  },
+  {
+   "fieldname": "gst_certificate",
+   "fieldtype": "Attach",
+   "is_mobile_field": 1,
+   "label": "GST Certificate"
+  },
+  {
+   "fieldname": "upload_pan_card",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Upload Pan Card"
+  },
+  {
+   "fieldname": "aadhar_card",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Aadhar Card"
+  },
+  {
+   "fieldname": "aadhar_no",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Aadhar No.",
+   "length": 12
+  },
+  {
+   "fieldname": "udyog_aadhar_no",
+   "fieldtype": "Data",
+   "is_mobile_field": 1,
+   "label": "Udyog Aadhar No."
+  },
+  {
+   "fieldname": "geolife_dealership_agreement",
+   "fieldtype": "Attach",
+   "is_mobile_field": 1,
+   "label": "Geolife Dealership Agreement"
+  },
+  {
+   "fieldname": "dealer_location_image",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Dealer Location Image"
+  },
+  {
+   "fieldname": "dealer_shop_image",
+   "fieldtype": "Attach Image",
+   "is_mobile_field": 1,
+   "label": "Dealer Shop Image"
+  },
+  {
+   "fieldname": "customer_parent_account",
+   "fieldtype": "Data",
+   "label": "Customer Parent Account"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-06-04 11:53:51.819865",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Proposed Dealer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

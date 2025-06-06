@@ -159,14 +159,13 @@
    "fieldname": "crop_cycle_items",
    "fieldtype": "Table",
    "label": "crop_cycle_items",
-   "options": "Crop Cycle Item",
-   "read_only": 1
+   "options": "Crop Cycle Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-08 16:42:17.084269",
+ "modified": "2025-04-26 14:04:57.297063",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Crop Calendar",

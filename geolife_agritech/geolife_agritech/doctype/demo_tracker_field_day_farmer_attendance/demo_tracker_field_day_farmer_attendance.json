@@ -7,8 +7,11 @@
  "engine": "InnoDB",
  "field_order": [
   "farmer_count_with_photos",
+  "demo_tracker",
+  "demo_tracker_item",
   "senior_geo_mitra",
-  "remarks"
+  "remarks",
+  "farmer_attendance_sheet"
  ],
  "fields": [
   {
@@ -34,17 +37,46 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Remarks"
+  },
+  {
+   "fieldname": "demo_tracker",
+   "fieldtype": "Link",
+   "label": "Demo Tracker",
+   "options": "Demo Tracker"
+  },
+  {
+   "fieldname": "demo_tracker_item",
+   "fieldtype": "Link",
+   "label": "Demo Tracker Item",
+   "options": "Demo Tracker Items"
+  },
+  {
+   "fieldname": "farmer_attendance_sheet",
+   "fieldtype": "Attach",
+   "label": "Farmer Attendance Sheet"
   }
  ],
  "index_web_pages_for_search": 1,
- "istable": 1,
  "links": [],
- "modified": "2025-03-27 21:24:56.971500",
+ "modified": "2025-04-16 12:31:19.930399",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Demo Tracker Field Day Farmer Attendance",
  "owner": "Administrator",
- "permissions": [],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

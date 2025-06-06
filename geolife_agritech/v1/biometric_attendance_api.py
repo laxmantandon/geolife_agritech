@@ -17,7 +17,7 @@ def get_biometric_data():
         from_date = from_date_obj.strftime('%d%m%Y')
         mindex = frappe.db.get_value("Biometric Attendance Log", filters={'device_location':'HO Mumbai'}, fieldname="max(indexno)") or 0
         response = make_get_request(f"http://27.107.150.174/COSEC/api.svc/v2/template-data?action=get;id=3;date-range={from_date}-{to_date};format=json;index={int(mindex)+1}", auth=("sa", "omhs2012"))
-        frappe.log_error("get_biometric_data backend", response)
+        # frappe.log_error("get_biometric_data backend", response)
         if response['template-data']:
             for b in response['template-data']:
                 try:

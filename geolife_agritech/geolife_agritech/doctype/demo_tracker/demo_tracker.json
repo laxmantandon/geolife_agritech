@@ -107,8 +107,21 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2025-03-27 21:24:56.589257",
+ "links": [
+  {
+   "link_doctype": "Demo Tracker Field Day Farmer Attendance",
+   "link_fieldname": "demo_tracker"
+  },
+  {
+   "link_doctype": "Demo Tracker Obeservations",
+   "link_fieldname": "demo_tracker"
+  },
+  {
+   "link_doctype": "Demo Tracker Media Upload",
+   "link_fieldname": "demo_tracker"
+  }
+ ],
+ "modified": "2025-04-16 11:09:08.807161",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Demo Tracker",

@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "bundle_name",
+  "description",
   "bundle_items"
  ],
  "fields": [
@@ -15,6 +16,7 @@
    "fieldname": "bundle_name",
    "fieldtype": "Data",
    "label": "Bundle Name",
+   "length": 400,
    "unique": 1
   },
   {
@@ -22,11 +24,17 @@
    "fieldtype": "Table",
    "label": "Bundle Items",
    "options": "Product Bundle Item"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Long Text",
+   "label": "Description",
+   "max_height": "100px"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-21 21:49:58.291966",
+ "modified": "2025-04-26 15:12:37.238531",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Product Bundle",

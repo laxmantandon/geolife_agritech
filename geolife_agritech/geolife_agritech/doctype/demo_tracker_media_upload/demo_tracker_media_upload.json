@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-16 11:07:09.753661",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "demo_tracker",
+  "demo_tracker_item",
+  "media_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "demo_tracker",
+   "fieldtype": "Link",
+   "label": "Demo Tracker",
+   "options": "Demo Tracker"
+  },
+  {
+   "fieldname": "demo_tracker_item",
+   "fieldtype": "Link",
+   "label": "Demo Tracker Item",
+   "options": "Demo Tracker Items"
+  },
+  {
+   "fieldname": "media_type",
+   "fieldtype": "Select",
+   "label": "Media Type",
+   "options": "\nTreated\nUntreated\nDealer Testimonial\nFarmer Testimonial"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-04-16 11:08:51.777688",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Tracker Media Upload",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
