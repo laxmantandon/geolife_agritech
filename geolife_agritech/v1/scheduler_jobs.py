@@ -6,7 +6,7 @@ from frappe.integrations.utils import make_get_request, make_post_request
 def attendance_sync():
     geo_mitra_list = frappe.db.sql(f"""
         SELECT
-            gm.dgo_code, gm.name
+            gm.dgo_code, gm.name, gm.custom_branch
         FROM `tabGeo Mitra` AS gm
         WHERE gm.custom_status="Active" AND gm.dgo_code!="" AND gm.geo_mitra_company ="Geolife"
         GROUP BY gm.name
@@ -33,7 +33,7 @@ def get_attendance(emp):
             da.posting_date DESC
     """, (frappe.utils.add_to_date(frappe.utils.today(), days=-1), frappe.utils.add_to_date(frappe.utils.today()), emp.get("name")), as_dict=1)
     
-    full_day = frappe.utils.get_time("08:30:00")
+    full_day = frappe.utils.get_time("08:00:00") if emp.custom_branch =="Factory" else frappe.utils.get_time("08:30:00")
     half_day = frappe.utils.get_time("04:30:00")
 
     if result1:

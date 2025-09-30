@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
+  "scquence_id",
   "description",
   "video_link",
   "session",
@@ -58,11 +59,18 @@
    "label": "Session",
    "options": "Training Session",
    "reqd": 1
+  },
+  {
+   "fieldname": "scquence_id",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Scquence ID"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-28 17:59:28.126831",
+ "modified": "2025-08-11 14:46:51.069931",
  "modified_by": "Administrator",
  "module": "My Training",
  "name": "Training Videos",

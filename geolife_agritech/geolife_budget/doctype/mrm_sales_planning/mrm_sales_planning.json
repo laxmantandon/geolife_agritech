@@ -224,7 +224,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-03-25 13:27:09.349127",
+ "modified": "2025-08-07 17:43:34.036909",
  "modified_by": "Administrator",
  "module": "Geolife Budget",
  "name": "MRM Sales Planning",
@@ -247,6 +247,7 @@
    "write": 1
   }
  ],
+ "read_only": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

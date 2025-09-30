@@ -126,7 +126,7 @@ def get_user_info(api_key, api_sec):
     # api_sec  = frappe.request.headers.get("Authorization")[22:]
     doc = frappe.db.get_value(
         doctype='User',
-        filters={"api_key": api_key},
+        filters={"api_key": api_key, "enabled":1},
         fieldname=["name"]
     )
 
@@ -3660,9 +3660,14 @@ def get_tour_plan_list():
             apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
             apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
             headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
+            from_date = frappe.form_dict.get('from_date')
+            to_date = frappe.form_dict.get('to_date')
 
             allplans=[]
-            plans = frappe.db.get_list("Circular Tour Plan", fields=["*"], filters=[["Circular Tour Plan","geo_mitra","=",geo_mitra_id]] )
+            parent_geo_mitras = [d.name for d in frappe.get_list("Geo Mitra", filters=[["parent_geo_mitra","=", geo_mitra_id]], fields=["name"])]
+            parent_geo_mitras.append(geo_mitra_id)
+            plans = frappe.db.get_list("Circular Tour Plan", fields=["*"], filters=[["Circular Tour Plan","geo_mitra","in",parent_geo_mitras],["Circular Tour Plan","from_date",">=",f"{from_date}"],["Circular Tour Plan","to_date","<=",f"{to_date}"]] )
+            # plans = frappe.db.get_list("Circular Tour Plan", fields=["*"], filters=[["Circular Tour Plan","geo_mitra","=",geo_mitra_id]] )
             for p in plans :
                 pln = frappe.get_doc("Circular Tour Plan",p.get('name'))
                 if pln.dealers:
@@ -3774,36 +3779,54 @@ def search_farmer():
         _data = frappe.request.json
         text = f'%{_data["text"]}%'
         geo_mitra_id = get_geomitra_from_userid(user_email)
+        geo_mitra = frappe.get_doc("Geo Mitra", geo_mitra_id)
 
         geo_mitra_list = [d.name for d in frappe.db.get_all("Geo Mitra", filters=[["Geo Mitra","name","descendants of",geo_mitra_id]], fields=["name"])]
         geo_mitra_list.append(geo_mitra_id)
 
-        if _data.get("all_farmer") :
+        territories = [d.territory for d in geo_mitra.get('territory')]
+
+        result=[]
+        
+        for territory in territories:
+            lft = frappe.db.get_value("Territory", territory, "lft")
+            rgt = frappe.db.get_value("Territory", territory, "rgt") 
+            mterritory =[d.name for d in frappe.db.sql("""SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s """, (lft, rgt), as_dict=1)]
+            if len(mterritory):
+                for tr in mterritory:
+                    if tr not in result:
+                        result.append(tr)
+
+        if _data.get("all_farmer"):
             geomitras = frappe.db.sql("""
                 SELECT 
                     *
                 FROM
                     `tabMy Farmer`
-                WHERE (first_name like %s OR last_name like %s OR mobile_number like %s) AND geomitra_number IN %s
-                LIMIT 100
-            """, (text, text, text, tuple(geo_mitra_list)), as_dict=1)
-        else :
+                WHERE ((first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND geomitra_number = %s) 
+                OR market IN %s
+                LIMIT 20
+            """, (text, text, text, geo_mitra_id, tuple(result)), as_dict=1)
+        else:
             if _data.get('village'):
                 geomitras = frappe.db.sql("""
                     SELECT 
                         *
                     FROM
                         `tabMy Farmer`
-                    WHERE (first_name like %s OR last_name like %s OR mobile_number like %s) AND geomitra_number IN %s AND village=%s
-                    """, (text, text, text, tuple(geo_mitra_list),_data.get('village') ), as_dict=1)
+                    WHERE ((first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND geomitra_number = %s) 
+                    AND village = %s 
+                    OR market IN %s
+                """, (text, text, text, geo_mitra_id, _data.get('village'), tuple(result)), as_dict=1)
             else:
                 geomitras = frappe.db.sql("""
                     SELECT 
                         *
                     FROM
                         `tabMy Farmer`
-                    WHERE (first_name like %s OR last_name like %s OR mobile_number like %s) AND geomitra_number IN %s
-                """, (text, text, text, tuple(geo_mitra_list)), as_dict=1)
+                    WHERE ((first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND geomitra_number = %s) 
+                    OR market IN %s
+                """, (text, text, text, geo_mitra_id, tuple(result)), as_dict=1)
         
         for g in geomitras:
            g.free_sample, g.free_sample_name = get_farmer_from_id(g.name)
@@ -3816,6 +3839,170 @@ def search_farmer():
         }
         return
 
+
+# @frappe.whitelist()
+# def search_farmer():
+#     api_key  = frappe.request.headers.get("Authorization")[6:21]
+#     api_sec  = frappe.request.headers.get("Authorization")[22:]
+
+#     user_email = get_user_info(api_key, api_sec)
+#     if not user_email:
+#         frappe.response["message"] = {
+#             "status": False,
+#             "message": "Unauthorised Access",
+#         }
+#         return
+
+#     if frappe.request.method =="POST":
+#         _data = frappe.request.json
+#         text = f'%{_data["text"]}%'
+#         geo_mitra_id = get_geomitra_from_userid(user_email)
+        
+#         frappe.logger().info(f"Search Farmer - User: {user_email}, Geo Mitra: {geo_mitra_id}")
+#         frappe.logger().info(f"Request Data: {_data}")
+
+#         # Pagination parameters
+#         page = int(_data.get("page", 1))
+#         limit = int(_data.get("limit", 20))
+#         offset = (page - 1) * limit
+
+#         # Simplified query - just get farmers by geo_mitra_id
+#         if _data.get("all_farmer"):
+#             # Simple query without complex territory filtering
+#             where_clause = "geomitra_number = %s"
+#             params = [geo_mitra_id]
+            
+#             # Add search text if provided
+#             if _data.get("text", "").strip():
+#                 where_clause += " AND (first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s)"
+#                 params.extend([text, text, text])
+            
+#             # Add village filter if provided
+#             if _data.get('village'):
+#                 where_clause += " AND village = %s"
+#                 params.append(_data.get('village'))
+#         else:
+#             # Original complex logic for specific village filtering
+#             geo_mitra = frappe.get_doc("Geo Mitra", geo_mitra_id)
+#             territories = [d.territory for d in geo_mitra.get('territory') if d.territory]
+            
+#             result = []
+#             for territory in territories:
+#                 try:
+#                     lft = frappe.db.get_value("Territory", territory, "lft")
+#                     rgt = frappe.db.get_value("Territory", territory, "rgt") 
+#                     mterritory =[d.name for d in frappe.db.sql("""
+#                         SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s
+#                     """, (lft, rgt), as_dict=1)]
+#                     result.extend(mterritory)
+#                 except Exception as e:
+#                     frappe.logger().error(f"Error expanding territory {territory}: {e}")
+#                     result.append(territory)
+
+#             result = list(set(result))
+            
+#             where_clause = "geomitra_number = %s"
+#             params = [geo_mitra_id]
+            
+#             if _data.get("text", "").strip():
+#                 where_clause += " AND (first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s)"
+#                 params.extend([text, text, text])
+            
+#             if _data.get('village'):
+#                 where_clause += " AND village = %s"
+#                 params.append(_data.get('village'))
+            
+#             if result:
+#                 where_clause += " AND market IN %s"
+#                 params.append(tuple(result))
+
+#         frappe.logger().info(f"WHERE clause: {where_clause}")
+#         frappe.logger().info(f"Parameters: {params}")
+
+#         # Get total count
+#         count_query = f"SELECT COUNT(*) as total FROM `tabMy Farmer` WHERE {where_clause}"
+#         total_result = frappe.db.sql(count_query, params, as_dict=1)
+#         total_count = total_result[0].total if total_result else 0
+
+#         frappe.logger().info(f"Total count: {total_count}")
+
+#         # Get paginated results
+#         data_query = f"""
+#             SELECT * FROM `tabMy Farmer`
+#             WHERE {where_clause}
+#             ORDER BY creation DESC
+#             LIMIT %s OFFSET %s
+#         """
+#         params.extend([limit, offset])
+
+#         geomitras = frappe.db.sql(data_query, params, as_dict=1)
+        
+#         frappe.logger().info(f"Results count: {len(geomitras)}")
+
+#         # Process results
+#         for g in geomitras:
+#             try:
+#                 g.free_sample, g.free_sample_name = get_farmer_from_id(g.name)
+#             except Exception as e:
+#                 frappe.logger().error(f"Error processing farmer {g.name}: {e}")
+#                 g.free_sample, g.free_sample_name = None, None
+
+#         # Calculate pagination metadata
+#         has_more = (offset + limit) < total_count
+#         total_pages = (total_count + limit - 1) // limit if limit > 0 else 1
+
+#         frappe.response["message"] = {
+#             "status": True,
+#             "message": "",
+#             "data": geomitras,
+#             "geo_mitra_id": geo_mitra_id,
+#             "total": total_count,
+#             "page": page,
+#             "limit": limit,
+#             "has_more": has_more,
+#             "total_pages": total_pages
+#         }
+#         return
+
+
+# @frappe.whitelist()
+# def search_pravakta_farmer():
+#     api_key  = frappe.request.headers.get("Authorization")[6:21]
+#     api_sec  = frappe.request.headers.get("Authorization")[22:]
+
+#     user_email = get_user_info(api_key, api_sec)
+#     if not user_email:
+#         frappe.response["message"] = {
+#             "status": False,
+#             "message": "Unauthorised Access",
+#         }
+#         return
+
+#     if frappe.request.method =="POST":
+#         _data = frappe.request.json
+#         text = f'%{_data["text"]}%'
+#         geo_mitra_id = get_geomitra_from_userid(user_email)
+
+        
+#         farmers = frappe.db.sql("""
+#             SELECT 
+#                 *
+#             FROM
+#                 `tabMy Farmer`
+#             WHERE (first_name like %s OR last_name like %s OR mobile_number like %s) AND gpk=1
+#             LIMIT 10
+#         """, (text, text, text), as_dict=1)
+        
+#         for g in farmers:
+#            g.free_sample, g.free_sample_name = get_farmer_from_id(g.name)
+
+#         frappe.response["message"] = {
+#             "status":True,
+#             "message": "",
+#             "data" : farmers,
+#             "geo_mitra_id": geo_mitra_id
+#         }
+#         return
 
 @frappe.whitelist()
 def search_pravakta_farmer():
@@ -3830,29 +4017,48 @@ def search_pravakta_farmer():
         }
         return
 
-    if frappe.request.method =="POST":
+    if frappe.request.method == "POST":
         _data = frappe.request.json
-        text = f'%{_data["text"]}%'
+        text = f'%{_data.get("text", "")}%'
+        
+        # Pagination parameters with defaults
+        page = int(_data.get("page", 1))
+        page_size = int(_data.get("page_size", 10))
+        offset = (page - 1) * page_size
+
         geo_mitra_id = get_geomitra_from_userid(user_email)
 
-        
-        geomitras = frappe.db.sql("""
-            SELECT 
-                *
-            FROM
-                `tabMy Farmer`
-            WHERE (first_name like %s OR last_name like %s OR mobile_number like %s) AND geomitra_number = %s AND gpk=1
-            LIMIT 10
-        """, (text, text, text, geo_mitra_id), as_dict=1)
-        
-        for g in geomitras:
-           g.free_sample, g.free_sample_name = get_farmer_from_id(g.name)
+        # Total count for pagination
+        total_count = frappe.db.count('My Farmer', 
+            filters=[
+                ['gpk', '=', 1]
+            ])
+
+        # Note: Above count logic counts separately, better to do combined count with OR condition in SQL:
+        total_count = frappe.db.sql("""
+            SELECT COUNT(*) FROM `tabMy Farmer`
+            WHERE (first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND gpk=1
+        """, (text, text, text))[0][0]
+
+        farmers = frappe.db.sql("""
+            SELECT * FROM `tabMy Farmer`
+            WHERE (first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND gpk=1
+            LIMIT %s OFFSET %s
+        """, (text, text, text, page_size, offset), as_dict=1)
+
+        for g in farmers:
+            g.free_sample, g.free_sample_name = get_farmer_from_id(g.name)
+
+        total_pages = (total_count + page_size - 1) // page_size  # Ceiling division
 
         frappe.response["message"] = {
-            "status":True,
+            "status": True,
             "message": "",
-            "data" : geomitras,
-            "geo_mitra_id": geo_mitra_id
+            "data": farmers,
+            "geo_mitra_id": geo_mitra_id,
+            "total_pages": total_pages,
+            "current_page": page,
+            "total_count": total_count
         }
         return
 
@@ -4341,148 +4547,540 @@ def get_dealer_marker_list():
 
   
 
+# @frappe.whitelist()
+# def search_dealer_territory():
+
+#     api_key  = frappe.request.headers.get("Authorization")[6:21]
+#     api_sec  = frappe.request.headers.get("Authorization")[22:]
+
+#     user_email = get_user_info(api_key, api_sec)
+#     if not user_email:
+#         frappe.response["message"] = {
+#             "status": False,
+#             "message": "Unauthorised Access",
+#         }
+#         return
+#     url = frappe.db.get_single_value('GeoLife Setting', 'url')
+#     apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
+#     apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
+#     headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
+
+
+#     if frappe.request.method =="POST":
+#         _data = frappe.request.json
+#         text = f'%{_data["text"]}%'
+
+#         geo_mitra_id = get_geomitra_from_userid(user_email)
+#         search_able_geo_mitra =  _data.get("child_geo_mitra") if _data.get("child_geo_mitra") else geo_mitra_id
+#         geo_mitra = frappe.get_doc("Geo Mitra",search_able_geo_mitra)
+#         if not geo_mitra.get('territory'):
+#             frappe.response["message"] = {
+#             "status": False,
+#             "message": "territory not found in geo mitra",
+#             }
+#             return
+        
+#         territories = [d.territory for d in geo_mitra.get('territory')]
+#         result=[]
+#         try:
+#             for territory in territories:
+#                 lft = frappe.db.get_value("Territory", territory, "lft")
+#                 rgt = frappe.db.get_value("Territory", territory, "rgt") 
+#                 mterritory =[d.name for d in frappe.db.sql("""SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s """, (lft, rgt), as_dict=1)]
+#                 if len(mterritory):
+#                     for tr in mterritory:
+#                         if tr not in result:
+#                             result.append(tr)
+
+#             mresult= str(result).replace("[","")
+#             mresult= mresult.replace("]","")
+#             dealers =frappe.db.sql(f"""SELECT  name as dealer,
+#                     territory as sales_person_name, custom_customer_active_type,
+#                     custom_longitude, custom_latitude,
+#                     dealer_name, qr_code, mobile_number, dealer_code FROM `tabDealer` 
+#                     WHERE 
+#                     (dealer_name like '{text}' OR mobile_number like '{text}') AND 
+#                     territory IN ({mresult}) AND custom_customer_active_type IN ('Active', 'OB', 'Overdue', 'legal') limit 20
+#                     """, as_dict=1)
+            
+
+
+#             for m in dealers :
+#                 # check_activity= frappe.db.get_list('Daily Activity',filters=[['dealer','=',m.dealer],['posting_date', 'between', [datetime.today().replace(day=1).strftime('%Y-%m-%d'),datetime.now().strftime('%Y-%m-%d')]]], fields=["name", "posting_date","geo_mitra","geo_mitra_name"], order_by='posting_date desc',)
+#                 check_activity= frappe.db.sql(f"""SELECT 
+#                         da.name, 
+#                         da.posting_date, 
+#                         da.geo_mitra, 
+#                         da.geo_mitra_name, 
+#                         mat.activity_type AS last_visit
+                        
+#                     FROM 
+#                         `tabDaily Activity` da
+#                     LEFT JOIN 
+#                         `tabActivity Type Multiselect` mat ON mat.parent = da.name
+#                     WHERE 
+#                         da.dealer = {m.get('dealer')}
+#                     ORDER BY 
+#                         da.creation DESC
+#                     LIMIT 1 """, as_dict=1)
+#                 # frappe.log_error('dealer',str(m))
+#                 # frappe.log_error('dealer data',str(check_activity))
+
+#                 if check_activity:
+#                     count_activity= frappe.db.get_list('Daily Activity',filters=[['dealer','=',m.dealer],['posting_date', 'between', [datetime.today().replace(day=1).strftime('%Y-%m-%d'),datetime.now().strftime('%Y-%m-%d')]]], fields=["name"],)
+
+#                     check_activity[0].count = len(count_activity) if count_activity else 0
+#                     # if check_activity[0].name:
+#                     #     # frappe.log_error('farmer Meeting',str(check_activity))
+#                     #     # frappe.log_error('dealer count',str(check_activity))
+
+#                     #     activity = frappe.get_doc('Daily Activity',check_activity[0].name)
+#                     #     # frappe.log_error('Activitys',activity.multi_activity_types[0].activity_type)
+
+#                     #     check_activity[0].last_visit=activity.multi_activity_types[0].activity_type
+#                     #     check_activity[0].count= len(check_activity)
+
+                        
+#                     m.activity = check_activity
+#                 else:
+#                     m.activity = [{'count':'', 'name':'', 'geo_mitra':'', 'geo_mitra_name':''}]
+#                 if m.qr_code:
+#                     m.qr_code = frappe.utils.get_url(m.qr_code)
+#             payload={
+#                 'dealers': [d.dealer_code for d in dealers]
+#                 # 'dealers': [vars(d) for d in pln.dealers]
+#             }
+#             # frappe.log_error("dealer searchre",payload)
+#             try:
+#                 response = requests.request("POST", f"{url}/api/method/geo_v15.geolife_api.customer_credit_limit_outstanding_bl", data=json.dumps(payload), headers=headers)
+#                 # frappe.log_error("dealer search response",json.loads(response.text))
+#                 result2 = json.loads(response.text)
+#                 result1= result2.get('message')
+#                 for d in dealers:
+#                     if d.dealer_code:
+#                         for dlr in result1:
+#                             if d.dealer_code == dlr.get('dealer'):
+#                                 d.outstanding = round(dlr.get('outstanding_amt')) if dlr.get('outstanding_amt') else '0'
+#                                 d.credit_limit = round(dlr.get('credit_limit')) if dlr.get('credit_limit') else 0
+#                                 d.biilling_amt =  round(dlr.get('biilling_amt')) if dlr.get('biilling_amt') else 0
+#                                 d.bal = round(dlr.get('bal')) if dlr.get('bal') else 0
+#                 frappe.response["message"] = {
+#                     "status":True,
+#                     "message": "",
+#                     "data" : dealers,
+#                     "geo_mitra_id": geo_mitra_id
+#                 }
+#                 return
+#             except Exception as err:
+#                 # frappe.log_error("dealer search response1",f"{err}")
+
+#                 frappe.response["message"] = {
+#                     "status":False,
+#                     "message": f"errorr {err}"
+#                 }
+#                 return
+
+#         except Exception as e:
+#             frappe.log_error("dealer search response1",f"{e}")
+#             frappe.response["message"] = {
+#                 "status": False,
+#                 "data": f"{e}",
+#             }
+#             return
+
+
+
+# @frappe.whitelist()
+# def search_dealer_territory():
+#     api_key  = frappe.request.headers.get("Authorization")[6:21]
+#     api_sec  = frappe.request.headers.get("Authorization")[22:]
+
+#     user_email = get_user_info(api_key, api_sec)
+#     if not user_email:
+#         frappe.response["message"] = {"status": False, "message": "Unauthorised Access"}
+#         return
+
+#     url = frappe.db.get_single_value('GeoLife Setting', 'url')
+#     apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
+#     apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
+#     headers = {'Authorization': f'token {apikey}:{apisec}', 'Content-Type': 'application/json'}
+
+#     # if frappe.request.method != "POST":
+#     #     frappe.response["message"] = {"status": False, "message": "Method not allowed"}
+#     #     return
+
+#     try:
+#         _data = frappe.request.json or {}
+#         text = f"%{_data.get('text', '')}%"
+
+#         # Pagination
+#         page = int(_data.get("page", 1) or 1)
+#         limit = int(_data.get("limit", 20) or 20)
+#         offset = _data.get("offset")
+#         if offset is None:
+#             offset = (page - 1) * limit
+#         else:
+#             offset = int(offset)
+
+#         # Active type filtering
+#         requested_type = _data.get("custom_customer_active_type")
+#         allowed_types = ['ACTIVE', 'OB', 'OVERDUE', 'LEGAL']
+#         where_type_clause = ""
+#         where_type_args = []
+#         if requested_type and requested_type.upper() != 'ALL':
+#             where_type_clause = " AND UPPER(custom_customer_active_type) = %s"
+#             where_type_args.append(requested_type.upper())
+#         else:
+#             # Limit to known set by default
+#             where_type_clause = " AND UPPER(custom_customer_active_type) IN %s"
+#             where_type_args.append(tuple(allowed_types))
+
+#         # Territory access
+#         geo_mitra_id = get_geomitra_from_userid(user_email)
+#         search_able_geo_mitra = _data.get("child_geo_mitra") or geo_mitra_id
+#         geo_mitra = frappe.get_doc("Geo Mitra", search_able_geo_mitra)
+#         if not geo_mitra.get('territory'):
+#             frappe.response["message"] = {"status": False, "message": "territory not found in geo mitra"}
+#             return
+
+#         # Expand all territories in the user’s tree
+#         territories = []
+#         selected_markets = _data.get("markets") or []
+#         selected_markets = [str(t).strip() for t in selected_markets if str(t).strip()]
+
+#         # If client sent markets, expand them to include descendants; then intersect with user's territories
+#         # if _data.get("markets"):
+#         #     for market in selected_markets:
+#         #         lft = frappe.db.get_value("Territory", market, "lft")
+#         #         rgt = frappe.db.get_value("Territory", market, "rgt")
+#         #         rows = frappe.db.sql(
+#         #             """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
+#         #             (lft, rgt),
+#         #             as_dict=True
+#         #         )
+#         #         for r in rows:
+#         #             if r.name not in territories:
+#         #                 territories.append(r.name)
+#         # else:
+#         for t in [d.territory for d in geo_mitra.get('territory')]:
+#             lft = frappe.db.get_value("Territory", t, "lft")
+#             rgt = frappe.db.get_value("Territory", t, "rgt")
+#             rows = frappe.db.sql(
+#                 """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
+#             (lft, rgt),
+#             as_dict=True
+#         )
+#         for r in rows:
+#             if r.name not in territories:
+#                 territories.append(r.name)
+
+#         if not territories:
+#             frappe.response["message"] = {"status": True, "message": "", "data": [], "geo_mitra_id": geo_mitra_id, "total": 0, "has_more": False}
+#             return
+
+#         # Build IN list for territories
+#         territory_placeholders = ", ".join(["%s"] * len(territories))
+
+#         # Count query for total
+#         count_sql = f"""
+#             SELECT COUNT(1) AS cnt
+#             FROM `tabDealer`
+#             WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
+#               AND territory IN ({territory_placeholders})
+#               {where_type_clause}
+#         """
+#         count_args = [text, text] + territories + where_type_args
+#         total_rows = frappe.db.sql(count_sql, tuple(count_args), as_dict=True)[0]["cnt"]
+
+#         # Data query with pagination
+#         data_sql = f"""
+#             SELECT name AS dealer, territory AS sales_person_name, custom_customer_active_type,
+#                    custom_longitude, custom_latitude, dealer_name, qr_code, mobile_number, dealer_code
+#             FROM `tabDealer`
+#             WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
+#               AND territory IN ({territory_placeholders})
+#               {where_type_clause}
+#             ORDER BY dealer_name
+#             LIMIT %s OFFSET %s
+#         """
+#         data_args = [text, text] + territories + where_type_args + [limit, offset]
+#         dealers = frappe.db.sql(data_sql, tuple(data_args), as_dict=True)
+
+#         # Hydrate activity info safely
+#         for m in dealers:
+#             # Most recent activity
+#             last_act = frappe.db.sql(
+#                 """
+#                 SELECT da.name, da.posting_date, da.geo_mitra, da.geo_mitra_name, mat.activity_type AS last_visit
+#                 FROM `tabDaily Activity` da
+#                 LEFT JOIN `tabActivity Type Multiselect` mat ON mat.parent = da.name
+#                 WHERE da.dealer = %s
+#                 ORDER BY da.creation DESC
+#                 LIMIT 1
+#                 """,
+#                 (m.get('dealer'),),
+#                 as_dict=True
+#             )
+
+#             if last_act:
+#                 # Current month count
+#                 start_date = datetime.today().replace(day=1).strftime('%Y-%m-%d')
+#                 end_date = datetime.now().strftime('%Y-%m-%d')
+#                 count_activity = frappe.db.get_list(
+#                     'Daily Activity',
+#                     filters=[['dealer', '=', m.get('dealer')], ['posting_date', 'between', [start_date, end_date]]],
+#                     fields=['name']
+#                 )
+#                 last_act[0].count = len(count_activity) if count_activity else 0
+#                 m.activity = last_act
+#             else:
+#                 m.activity = [{'count': '', 'name': '', 'geo_mitra': '', 'geo_mitra_name': '', 'last_visit': ''}]
+
+#             if m.qr_code:
+#                 m.qr_code = frappe.utils.get_url(m.qr_code)
+
+#         # Credit/outstanding enrichment (unchanged)
+#         payload = {'dealers': [d.dealer_code for d in dealers if d.get('dealer_code')]}
+#         try:
+#             response = requests.request(
+#                 "POST",
+#                 f"{url}/api/method/geo_v15.geolife_api.customer_credit_limit_outstanding_bl",
+#                 data=json.dumps(payload),
+#                 headers=headers
+#             )
+#             result2 = json.loads(response.text)
+#             result1 = result2.get('message') or []
+#             bucket = {dlr.get('dealer'): dlr for dlr in result1 if dlr.get('dealer')}
+
+#             for d in dealers:
+#                 code = d.get('dealer_code')
+#                 if code and code in bucket:
+#                     dlr = bucket[code]
+#                     d.outstanding = round(dlr.get('outstanding_amt') or 0)
+#                     d.credit_limit = round(dlr.get('credit_limit') or 0)
+#                     d.biilling_amt = round(dlr.get('biilling_amt') or 0)
+#                     d.bal = round(dlr.get('bal') or 0)
+#         except Exception as err:
+#             pass  # soft-fail enrichment
+
+#         has_more = (offset + len(dealers)) < total_rows
+
+#         frappe.response["message"] = {
+#             "status": True,
+#             "message": "",
+#             "data": dealers,
+#             "geo_mitra_id": geo_mitra_id,
+#             "total": total_rows,
+#             "page": page,
+#             "limit": limit,
+#             "has_more": has_more,
+#         }
+#         return
+
+#     except Exception as e:
+#         frappe.log_error("dealer search error", str(e))
+#         frappe.response["message"] = {"status": False, "message": f"{e}"}
+#         return       
+
 @frappe.whitelist()
 def search_dealer_territory():
+    import json, requests
+    from datetime import datetime
 
     api_key  = frappe.request.headers.get("Authorization")[6:21]
     api_sec  = frappe.request.headers.get("Authorization")[22:]
 
     user_email = get_user_info(api_key, api_sec)
     if not user_email:
-        frappe.response["message"] = {
-            "status": False,
-            "message": "Unauthorised Access",
-        }
+        frappe.response["message"] = {"status": False, "message": "Unauthorised Access"}
         return
+
     url = frappe.db.get_single_value('GeoLife Setting', 'url')
     apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
     apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
-    headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
+    headers = {'Authorization': f'token {apikey}:{apisec}', 'Content-Type': 'application/json'}
 
+    try:
+        _data = frappe.request.json or {}
+        text = f"%{_data.get('text', '')}%"
 
-    if frappe.request.method =="POST":
-        _data = frappe.request.json
-        text = f'%{_data["text"]}%'
+        # Pagination params (for new app) -- old app won't send them
+        page = int(_data.get("page", 0) or 0)
+        limit = int(_data.get("limit", 0) or 0)
+        offset = (page - 1) * limit if page and limit else 0
 
+        # Active type filtering
+        requested_type = _data.get("custom_customer_active_type")
+        allowed_types = ['ACTIVE', 'OB', 'OVERDUE', 'LEGAL']
+        where_type_clause = ""
+        where_type_args = []
+        if requested_type:
+            if requested_type.upper() != 'ALL':
+                where_type_clause = " AND UPPER(custom_customer_active_type) = %s"
+                where_type_args.append(requested_type.upper())
+        else:
+            # default behaviour for old app
+            where_type_clause = " AND custom_customer_active_type IN ('Active', 'OB', 'Overdue', 'legal')"
+
+        # Territory access
         geo_mitra_id = get_geomitra_from_userid(user_email)
-        search_able_geo_mitra =  _data.get("child_geo_mitra") if _data.get("child_geo_mitra") else geo_mitra_id
-        geo_mitra = frappe.get_doc("Geo Mitra",search_able_geo_mitra)
+        search_able_geo_mitra = _data.get("child_geo_mitra") or geo_mitra_id
+        geo_mitra = frappe.get_doc("Geo Mitra", search_able_geo_mitra)
         if not geo_mitra.get('territory'):
+            frappe.response["message"] = {"status": False, "message": "territory not found in geo mitra"}
+            return
+
+        # Get all territories in user’s tree
+        territories = []
+        for t in [d.territory for d in geo_mitra.get('territory')]:
+            lft = frappe.db.get_value("Territory", t, "lft")
+            rgt = frappe.db.get_value("Territory", t, "rgt")
+            rows = frappe.db.sql(
+                """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
+                (lft, rgt),
+                as_dict=True
+            )
+            for r in rows:
+                if r.name not in territories:
+                    territories.append(r.name)
+
+        if not territories:
             frappe.response["message"] = {
-            "status": False,
-            "message": "territory not found in geo mitra",
+                "status": True,
+                "message": "",
+                "data": [],
+                "geo_mitra_id": geo_mitra_id,
+                "total": 0,
+                "has_more": False
             }
             return
-        
-        territories = [d.territory for d in geo_mitra.get('territory')]
-        result=[]
+
+        # Build queries
+        territory_placeholders = ", ".join(["%s"] * len(territories))
+
+        # Count query (only used if new app sends pagination)
+        total_rows = 0
+        if page and limit:
+            count_sql = f"""
+                SELECT COUNT(1) AS cnt
+                FROM `tabDealer`
+                WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
+                  AND territory IN ({territory_placeholders})
+                  {where_type_clause}
+            """
+            count_args = [text, text] + territories + where_type_args
+            total_rows = frappe.db.sql(count_sql, tuple(count_args), as_dict=True)[0]["cnt"]
+
+        # Data query
+        if page and limit:
+            # new app (with pagination)
+            data_sql = f"""
+                SELECT name AS dealer, territory AS sales_person_name, custom_customer_active_type,
+                       custom_longitude, custom_latitude, dealer_name, qr_code, mobile_number, dealer_code
+                FROM `tabDealer`
+                WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
+                  AND territory IN ({territory_placeholders})
+                  {where_type_clause}
+                ORDER BY dealer_name
+                LIMIT %s OFFSET %s
+            """
+            data_args = [text, text] + territories + where_type_args + [limit, offset]
+        else:
+            # old app (limit fixed to 20)
+            data_sql = f"""
+                SELECT name AS dealer, territory AS sales_person_name, custom_customer_active_type,
+                       custom_longitude, custom_latitude, dealer_name, qr_code, mobile_number, dealer_code
+                FROM `tabDealer`
+                WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
+                  AND territory IN ({territory_placeholders})
+                  {where_type_clause}
+                LIMIT 20
+            """
+            data_args = [text, text] + territories + where_type_args
+
+        dealers = frappe.db.sql(data_sql, tuple(data_args), as_dict=True)
+
+        # Hydrate activity info
+        for m in dealers:
+            last_act = frappe.db.sql(
+                """
+                SELECT da.name, da.posting_date, da.geo_mitra, da.geo_mitra_name, mat.activity_type AS last_visit
+                FROM `tabDaily Activity` da
+                LEFT JOIN `tabActivity Type Multiselect` mat ON mat.parent = da.name
+                WHERE da.dealer = %s
+                ORDER BY da.creation DESC
+                LIMIT 1
+                """,
+                (m.get('dealer'),),
+                as_dict=True
+            )
+            if last_act:
+                start_date = datetime.today().replace(day=1).strftime('%Y-%m-%d')
+                end_date = datetime.now().strftime('%Y-%m-%d')
+                count_activity = frappe.db.get_list(
+                    'Daily Activity',
+                    filters=[['dealer', '=', m.get('dealer')], ['posting_date', 'between', [start_date, end_date]]],
+                    fields=['name']
+                )
+                last_act[0].count = len(count_activity) if count_activity else 0
+                m.activity = last_act
+            else:
+                m.activity = [{'count': '', 'name': '', 'geo_mitra': '', 'geo_mitra_name': '', 'last_visit': ''}]
+            if m.qr_code:
+                m.qr_code = frappe.utils.get_url(m.qr_code)
+
+        # Credit enrichment
+        payload = {'dealers': [d.dealer_code for d in dealers if d.get('dealer_code')]}
         try:
-            for territory in territories:
-                lft = frappe.db.get_value("Territory", territory, "lft")
-                rgt = frappe.db.get_value("Territory", territory, "rgt") 
-                mterritory =[d.name for d in frappe.db.sql("""SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s """, (lft, rgt), as_dict=1)]
-                if len(mterritory):
-                    for tr in mterritory:
-                        if tr not in result:
-                            result.append(tr)
+            response = requests.request(
+                "POST",
+                f"{url}/api/method/geo_v15.geolife_api.customer_credit_limit_outstanding_bl",
+                data=json.dumps(payload),
+                headers=headers
+            )
+            result2 = json.loads(response.text)
+            result1 = result2.get('message') or []
+            bucket = {dlr.get('dealer'): dlr for dlr in result1 if dlr.get('dealer')}
+            for d in dealers:
+                code = d.get('dealer_code')
+                if code and code in bucket:
+                    dlr = bucket[code]
+                    d.outstanding = round(dlr.get('outstanding_amt') or 0)
+                    d.credit_limit = round(dlr.get('credit_limit') or 0)
+                    d.biilling_amt = round(dlr.get('biilling_amt') or 0)
+                    d.bal = round(dlr.get('bal') or 0)
+        except Exception:
+            pass  # soft fail
 
-            mresult= str(result).replace("[","")
-            mresult= mresult.replace("]","")
-            dealers =frappe.db.sql(f"""SELECT  name as dealer,
-                    territory as sales_person_name, custom_customer_active_type,
-                    custom_longitude, custom_latitude,
-                    dealer_name, qr_code, mobile_number, dealer_code FROM `tabDealer` 
-                    WHERE 
-                    (dealer_name like '{text}' OR mobile_number like '{text}') AND 
-                    territory IN ({mresult}) AND custom_customer_active_type IN ('Active', 'OB', 'Overdue', 'legal') limit 20
-                    """, as_dict=1)
-            
-
-
-            for m in dealers :
-                # check_activity= frappe.db.get_list('Daily Activity',filters=[['dealer','=',m.dealer],['posting_date', 'between', [datetime.today().replace(day=1).strftime('%Y-%m-%d'),datetime.now().strftime('%Y-%m-%d')]]], fields=["name", "posting_date","geo_mitra","geo_mitra_name"], order_by='posting_date desc',)
-                check_activity= frappe.db.sql(f"""SELECT 
-                        da.name, 
-                        da.posting_date, 
-                        da.geo_mitra, 
-                        da.geo_mitra_name, 
-                        mat.activity_type AS last_visit
-                        
-                    FROM 
-                        `tabDaily Activity` da
-                    LEFT JOIN 
-                        `tabActivity Type Multiselect` mat ON mat.parent = da.name
-                    WHERE 
-                        da.dealer = {m.get('dealer')}
-                    ORDER BY 
-                        da.creation DESC
-                    LIMIT 1 """, as_dict=1)
-                # frappe.log_error('dealer',str(m))
-                # frappe.log_error('dealer data',str(check_activity))
-
-                if check_activity:
-                    count_activity= frappe.db.get_list('Daily Activity',filters=[['dealer','=',m.dealer],['posting_date', 'between', [datetime.today().replace(day=1).strftime('%Y-%m-%d'),datetime.now().strftime('%Y-%m-%d')]]], fields=["name"],)
-
-                    check_activity[0].count = len(count_activity) if count_activity else 0
-                    # if check_activity[0].name:
-                    #     # frappe.log_error('farmer Meeting',str(check_activity))
-                    #     # frappe.log_error('dealer count',str(check_activity))
-
-                    #     activity = frappe.get_doc('Daily Activity',check_activity[0].name)
-                    #     # frappe.log_error('Activitys',activity.multi_activity_types[0].activity_type)
-
-                    #     check_activity[0].last_visit=activity.multi_activity_types[0].activity_type
-                    #     check_activity[0].count= len(check_activity)
-
-                        
-                    m.activity = check_activity
-                else:
-                    m.activity = [{'count':'', 'name':'', 'geo_mitra':'', 'geo_mitra_name':''}]
-                if m.qr_code:
-                    m.qr_code = frappe.utils.get_url(m.qr_code)
-            payload={
-                'dealers': [d.dealer_code for d in dealers]
-                # 'dealers': [vars(d) for d in pln.dealers]
-            }
-            # frappe.log_error("dealer searchre",payload)
-            try:
-                response = requests.request("POST", f"{url}/api/method/geo_v15.geolife_api.customer_credit_limit_outstanding_bl", data=json.dumps(payload), headers=headers)
-                # frappe.log_error("dealer search response",json.loads(response.text))
-                result2 = json.loads(response.text)
-                result1= result2.get('message')
-                for d in dealers:
-                    if d.dealer_code:
-                        for dlr in result1:
-                            if d.dealer_code == dlr.get('dealer'):
-                                d.outstanding = round(dlr.get('outstanding_amt')) if dlr.get('outstanding_amt') else '0'
-                                d.credit_limit = round(dlr.get('credit_limit')) if dlr.get('credit_limit') else 0
-                                d.biilling_amt =  round(dlr.get('biilling_amt')) if dlr.get('biilling_amt') else 0
-                                d.bal = round(dlr.get('bal')) if dlr.get('bal') else 0
-                frappe.response["message"] = {
-                    "status":True,
-                    "message": "",
-                    "data" : dealers,
-                    "geo_mitra_id": geo_mitra_id
-                }
-                return
-            except Exception as err:
-                # frappe.log_error("dealer search response1",f"{err}")
-
-                frappe.response["message"] = {
-                    "status":False,
-                    "message": f"errorr {err}"
-                }
-                return
-
-        except Exception as e:
-            frappe.log_error("dealer search response1",f"{e}")
+        # Response handling
+        if page and limit:
+            # new app response with pagination info
+            has_more = (offset + len(dealers)) < total_rows
             frappe.response["message"] = {
-                "status": False,
-                "data": f"{e}",
+                "status": True,
+                "message": "",
+                "data": dealers,
+                "geo_mitra_id": geo_mitra_id,
+                "total": total_rows,
+                "page": page,
+                "limit": limit,
+                "has_more": has_more,
             }
-            return
+        else:
+            # old app response
+            frappe.response["message"] = {
+                "status": True,
+                "message": "",
+                "data": dealers,
+                "geo_mitra_id": geo_mitra_id,
+            }
+        return
 
-        
+    except Exception as e:
+        frappe.log_error("dealer search error", str(e))
+        frappe.response["message"] = {"status": False, "message": f"{e}"}
+        return
+
 
 @frappe.whitelist()
 def search_retailer():
@@ -5026,20 +5624,22 @@ def dashboard_data(geo_mitra):
         Dashboard = {"present_days":""}
         count_days=0
         present_days=""
-        home_data = frappe.db.get_list("Daily Activity", filters=[["Activity Type Multiselect","activity_type","in",["End Day"]],["Daily Activity","geo_mitra","=",geo_mitra],["Daily Activity","posting_date","Between",[datetime.today().replace(day=1),datetime.now().strftime('%Y-%m-%d')]]], 
-                                       fields=["name","activity_type","activity_name","session_started","session_enddate"])
-        for h in home_data:
-            if h.session_enddate is not None:
-                start_time_str = h.session_started.strftime("%Y-%m-%d %H:%M:%S")
-                start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
-                end_time_str = h.session_enddate.strftime("%Y-%m-%d %H:%M:%S")
-                end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
-                time_difference = end_time - start_time
-                if time_difference :
-                    value = time_difference.total_seconds() / 3600
-                    if value > 8 :
-                        count_days = count_days+1
-                        h.value = count_days
+        # home_data = frappe.db.get_list("Daily Activity", filters=[["Activity Type Multiselect","activity_type","in",["End Day"]],["Daily Activity","geo_mitra","=",geo_mitra],["Daily Activity","posting_date","Between",[datetime.today().replace(day=1),datetime.now().strftime('%Y-%m-%d')]]], 
+        #                                fields=["name","activity_type","activity_name","session_started","session_enddate"])
+        # for h in home_data:
+        #     if h.session_enddate is not None:
+        #         start_time_str = h.session_started.strftime("%Y-%m-%d %H:%M:%S")
+        #         start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
+        #         end_time_str = h.session_enddate.strftime("%Y-%m-%d %H:%M:%S")
+        #         end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
+        #         time_difference = end_time - start_time
+        #         if time_difference :
+        #             value = time_difference.total_seconds() / 3600
+        #             if value > 8 :
+        #                 count_days = count_days+1
+        #                 h.value = count_days
+        count_days = frappe.db.count("Attendance", filters=[["Attendance","attendance_date","Timespan","this month"],["Attendance","geo_mitra","=",geo_mitra],["Attendance","status","=","Present"]])
+
 
         res = calendar.monthrange(int(datetime.today().strftime('%Y')), int(datetime.today().strftime('%m')))
         last_day = res[1]
@@ -5153,7 +5753,15 @@ def dashboard_data(geo_mitra):
         Dashboard["dealer_not_visit"] = f"{dealer_not_visit}/{Dealers_count}"
 
         Dashboard["tft_downloads"] = frappe.db.count("Door To Door Visit", {"geo_mitra":geo_mitra})
-        Dashboard["farmer_connected"] = frappe.db.count("My Farmer", {"geomitra_number":geo_mitra}) +  frappe.db.count("My Farmer", [["geomitra_number", "descendants of",geo_mitra]])
+        # Dashboard["farmer_connected"] = frappe.db.count("My Farmer", {"geomitra_number":geo_mitra}) +  frappe.db.count("My Farmer", [["geomitra_number", "descendants of",geo_mitra]])
+        Dashboard["farmer_connected"] = len(frappe.db.sql("""
+                SELECT 
+                    name
+                FROM
+                    `tabMy Farmer`
+                WHERE (geomitra_number = %s) 
+                OR market IN %s
+            """, (geo_mitra, tuple(result)), as_dict=1)) or 0
         Dashboard["new_dealer"] = Dealers_count
         # fiscle_year = frappe.get_all("Fiscal Year", filters=[''])
 
@@ -5180,8 +5788,8 @@ def dashboard_data(geo_mitra):
 
         target = frappe.db.sql("""
             SELECT
-               st.total_target as target
-            FROM `tabProduct Target` st 
+               CAST(st.total_target AS INT) as target
+            FROM `tabTerritory Product Target` st 
             WHERE st.sales_team = %s
             ORDER BY st.creation DESC LIMIT 2
         """, geo_mitra, as_dict=True)
@@ -5195,10 +5803,11 @@ def dashboard_data(geo_mitra):
         #     OR range7 > 0
         #     OR range8 > 0) AND dealer IN {tuple(dealers_code+['All'])}  """, as_dict=True)
         
-        mlist = frappe.db.get_all("Customer 120 Day Overdue For Currenct Fiscal Year", filters=[['territory', 'in',result ],['outstanding_amount','>','1']], fields=["*"])
+        mlist = frappe.db.get_all("Customer 120 Day Overdue For Currenct Fiscal Year", filters=[['territory', 'in',result ],['outstanding_amount','>','0']], fields=["*"])
+        nlist = frappe.db.get_all("Customer 150 Day Overdue For Currenct Fiscal Year", filters=[['territory', 'in',result ],['outstanding_amount','>','0']], fields=["*"])
 
         # Dashboard["days120_overdues"] =mlist[0].count
-        Dashboard["days120_overdues"] =len(mlist)
+        Dashboard["days120_overdues"] =f"{len(mlist)}-{len(nlist)}"
 
 
         return Dashboard
@@ -5305,7 +5914,15 @@ def search_all_product():
         _data = frappe.request.json
         text = f'%{_data["text"]}%'
         geo_mitra_id = get_geomitra_from_userid(user_email)
-        products = frappe.db.get_all("Product",filters=[["Product","product_name","like",text]],fields=["*"] )
+        geo_mitra = frappe.get_doc("Geo Mitra",geo_mitra_id)
+        if not geo_mitra.get('custom_geomitra_type'):
+            frappe.response["message"] = {
+                "status": False,
+                "message": "Geo Mitra Type Not Found",
+            }
+            return
+
+        products = frappe.db.get_all("Product",filters=[["Product","product_name","like",text],['custom_item_group','descendants of (inclusive)',geo_mitra.get('custom_geomitra_type')]],fields=["*"] )
 
         if products:
             frappe.response["message"] = {
@@ -5404,7 +6021,7 @@ def get_confirmation_of_accounts_pdf(customer, from_date, to_date):
     headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
 
     resp = requests.request('GET', f"{url}/api/method/geolife_customapp.geolife_customapp.pdf.get_confirmation_of_accounts_pdf?customer={customer}&from_date={from_date}&to_date={to_date}", headers=headers)
-
+    frappe.log_error("get_confirmation_of_accounts_pdf", resp.text)
     return resp.json()
 
 @frappe.whitelist()
@@ -5718,7 +6335,8 @@ def monthly_achivement():
                                     sum(dpi.current_may_value) as May, sum(dpi.current_jun_value) as Jun,
                                     sum(dpi.current_jul_value) as Jul, sum(dpi.current_aug_value) as Aug,
                                     sum(dpi.current_sep_value) as Sep, sum(dpi.current_oct_value) as Oct,
-                                    sum(dpi.current_nov_value) as Nov, sum(dpi.current_dec_value) as December FROM `tabDealer Target` dt
+                                    sum(dpi.current_nov_value) as Nov, sum(dpi.current_dec_value) as December 
+                                    FROM `tabTerritory Target` dt
                                     LEFT JOIN `tabDealer Product Item` dpi ON dpi.parent=dt.name
                                     WHERE dt.sales_team=%s
                                     """,(geo_mitra_id),as_dict=1)
@@ -5919,7 +6537,7 @@ def approve_multiple_geo_mitra_attendance():
                     }
                     frappe.log_error('attendance approval geo mitra',attendance)
                     response = requests.request("GET", f"{url}/api/method/approve_attendance?emp={x.get('employee_code')}&status={x.get('status')}&attendance_date={datetime.strftime(x.get('attendance_date'),'%Y-%m-%d') }", headers=headers)
-                    frappe.log_error('attendance approval geo mitra',response.text)
+                    frappe.log_error('attendance approval geo mitra error',response.text)
                     x.submit()
                     frappe.response.message={
                         'status':True,
@@ -5991,7 +6609,7 @@ def approve_geo_mitra_attendance():
             }
 
 @frappe.whitelist()
-def upload_file_in_doctype(datas, filename, docname, doctype):
+def upload_file_in_doctype(datas, filename, docname, doctype, fieldname=None):
     docs=[]
     try:
         mfilename = ''
@@ -6016,6 +6634,7 @@ def upload_file_in_doctype(datas, filename, docname, doctype):
                         "attached_to_doctype": doctype if doctype else "Geo Mitra",
                         "attached_to_name": docname,
                         "doctype": "File",
+                        "attached_to_field": fieldname if fieldname else ""
                     }
                 )
                 doc.flags.ignore_permissions = True
@@ -6426,6 +7045,7 @@ def upload_file_document_in_doctype(datas, filename, docname, doctype):
 #     except Exception as e:
 #         frappe.log_error(f"Error in get_base64 for {file_path}: {str(e)}", "get_base64")
 #         return ""
+@frappe.whitelist()
 def get_base64(file_path):
     try:
         if not file_path:
@@ -6450,6 +7070,22 @@ def get_base64(file_path):
 
 @frappe.whitelist()
 def create_customer_in_erp_from_proposed_dealer(dealer_name):
+    try:
+        frappe.enqueue(
+                    "geolife_agritech.v1.geolife_api3.create_customer_in_erp_from_proposed_dealer_enqueue",
+                    dealer_name=dealer_name,
+                   
+                    queue='long'
+                )
+        
+        return ''
+    except Exception as e:
+        # doc.save()
+        frappe.log_error("Error in create_customer_in_erp_from_proposed_dealer", str(e))
+        return e
+
+@frappe.whitelist()
+def create_customer_in_erp_from_proposed_dealer_enqueue(dealer_name):
     try:
         doc = frappe.get_doc("Proposed Dealer", dealer_name)
         geo_mitra = frappe.get_doc("Geo Mitra", doc.get("geo_mitra"))
@@ -6510,16 +7146,115 @@ def create_customer_in_erp_from_proposed_dealer(dealer_name):
         )
         frappe.log_error("Payload for Customer Creation", response.text)
 
-
+        result = response.json()
         if response.status_code == 200:
-            frappe.msgprint("Customer successfully created in ERPNext")
-            doc.status = "Approved"
-            doc.submit()
+            if result.get('message', {}).get('customer'):
+
+                result = response.json()
+                frappe.msgprint( f"{result.get('message', {})}")
+                
+                frappe.log_error("Response from ERP for Customer Creation",  f"{result.get('message', {})}")
+                doc.status = "Approved"
+                doc.customer_code=result.get('message', {}).get('customer')
+                doc.submit()
+                # try:
+                file_path = frappe.get_site_path(doc.geolife_dealership_agreement.strip("/"))
+                frappe.enqueue(
+                    "geolife_agritech.v1.geolife_api3.upload_dealership_agreement_in_background",
+                    file_path=file_path,
+                    customer=result.get('message', {}).get('customer'),
+                    url=url,
+                    apikey=apikey,
+                    apisec=apisec,
+                    queue='default'
+                )
+                return result.get('message', {})
+                
+                # except Exception as er:
+                #     frappe.log_error("Error uploading dealership agreement (enqueue)", str(er))
+            else:
+                frappe.throw(f"Error: {response.text}")
+                frappe.log_error("Response from ERP for Customer Creation", response.text)
+                doc.error_from_erp = f"{str(response.text)}"
+                doc.save()
+                return result.get('message', {})
+
+            # try:
+            #     file_path = frappe.get_site_path(doc.geolife_dealership_agreement.strip("/"))
+            #     with open(file_path, "rb") as f:
+            #         files = {
+            #             "file": (os.path.basename(file_path), f, "application/octet-stream"),
+            #         }
+            #         data = {
+            #             "doctype": "Customer",
+            #             "docname": result.get('message', {}).get('customer'),
+            #             "is_private": 1
+            #         }
+            #         response1 = requests.post(
+            #             f"{url}/api/method/upload_file",
+            #             files=files,
+            #             data=data,
+            #             headers={'Authorization': f'token {apikey}:{apisec}'}
+            #         )
+            #     frappe.log_error("Dealership Agreement Upload Response", response1.text)
+
+            #     # if doc.get('custom_geolife_dealership_agreement'):
+            #     #     payload2 = {
+            #     #         "custom_geolife_dealership_agreement": get_base64(doc.geolife_dealership_agreement or ""),
+            #     #         "customer": result.get('message', {}).get('customer')
+                        
+            #     #     }
+            #     #     response1 = requests.post(
+            #     #         f"{url}/api/method/geo_v15.geolife_api.update_agreementfrom_proposed_dealer",
+            #     #         data=json.dumps(payload2),
+            #     #         headers=headers
+            #     #     )
+            #     #     frappe.log_error("Dealership Agreement Upload Response", response1.text)
+            #     #     if response1.status_code == 200:
+            #     #         pass
+            #             # doc.custom_geolife_dealership_agreement = response1.json().get('file_url')
+            #             # doc.save()  
+            # except Exception as er:
+            #     frappe.log_error("Error uploading dealership agreement", str(er))
+            #     # doc.custom_geolife_dealership_agreement = ""
+            #     # doc.save()
+
+
+
+
+
         else:
+            doc.error_from_erp =f"{str(response.text)}"
+            doc.save()
             frappe.throw(f"Error: {response.text}")
+        # frappe.log_error("Response from ERP for Customer Creation", response.text)
 
         return response.json()
     except Exception as e:
+        doc.error_from_erp =f"{str(e)}"
+        # doc.save()
+        frappe.db.commit()
         frappe.log_error("Error in create_customer_in_erp_from_proposed_dealer", str(e))
         frappe.throw(f"{str(e)}")
-        return e
+        return e   
+
+def upload_dealership_agreement_in_background(file_path, customer, url, apikey, apisec):
+    try:
+        with open(file_path, "rb") as f:
+            files = {
+                "file": (os.path.basename(file_path), f, "application/octet-stream"),
+            }
+            data = {
+                "doctype": "Customer",
+                "docname": customer,
+                "is_private": 1
+            }
+            response1 = requests.post(
+                f"{url}/api/method/upload_file",
+                files=files,
+                data=data,
+                headers={'Authorization': f'token {apikey}:{apisec}'}
+            )
+        frappe.log_error("Dealership Agreement Upload Response (Background)", response1.text)
+    except Exception as er:
+        frappe.log_error("Error uploading dealership agreement (Background)", str(er))

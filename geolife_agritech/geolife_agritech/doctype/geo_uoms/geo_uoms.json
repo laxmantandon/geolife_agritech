@@ -19,7 +19,7 @@
   },
   {
    "fieldname": "conversion_factor",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Conversion Factor"
   }
@@ -27,7 +27,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-04 12:43:50.837212",
+ "modified": "2025-09-23 12:18:25.087792",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Geo Uoms",

@@ -202,7 +202,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-03-25 13:27:07.784718",
+ "modified": "2025-08-08 13:07:04.706195",
  "modified_by": "Administrator",
  "module": "Geolife Budget",
  "name": "MRM Dealer Planning",
@@ -223,6 +223,7 @@
    "write": 1
   }
  ],
+ "read_only": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

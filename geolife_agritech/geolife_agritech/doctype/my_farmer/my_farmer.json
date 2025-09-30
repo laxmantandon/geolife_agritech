@@ -8,6 +8,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "gpk",
+  "snehbandhan",
   "first_name",
   "last_name",
   "mobile_number",
@@ -132,7 +134,8 @@
    "fieldname": "market",
    "fieldtype": "Link",
    "label": "Nearest Market",
-   "options": "Territory"
+   "options": "Territory",
+   "reqd": 1
   },
   {
    "fieldname": "village",
@@ -170,11 +173,23 @@
    "in_list_view": 1,
    "label": "Jeep Campaign",
    "options": "Jeep Campaign"
+  },
+  {
+   "default": "0",
+   "fieldname": "gpk",
+   "fieldtype": "Check",
+   "label": "Geolife Pravakta Kisan"
+  },
+  {
+   "default": "0",
+   "fieldname": "snehbandhan",
+   "fieldtype": "Check",
+   "label": "Geolife Snehbandhan"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-03 23:02:50.438641",
+ "modified": "2025-08-25 11:33:59.353222",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "My Farmer",

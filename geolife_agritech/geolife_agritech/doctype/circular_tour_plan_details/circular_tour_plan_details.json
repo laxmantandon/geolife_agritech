@@ -8,6 +8,7 @@
  "field_order": [
   "dealer",
   "dealer_name",
+  "customer_active_type",
   "latitude",
   "longitude",
   "dealer_code",
@@ -77,12 +78,19 @@
    "fieldname": "biilling_amt",
    "fieldtype": "Data",
    "label": "Biilling_amt"
+  },
+  {
+   "fetch_from": "dealer.custom_customer_active_type",
+   "fieldname": "customer_active_type",
+   "fieldtype": "Data",
+   "label": "Customer Active Type",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-03 15:54:28.629074",
+ "modified": "2025-08-12 16:34:40.426499",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Circular Tour Plan Details",

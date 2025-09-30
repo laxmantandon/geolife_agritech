@@ -17,7 +17,9 @@
   {
    "fieldname": "geo_mitra",
    "fieldtype": "Link",
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Geo Mitra",
    "options": "Geo Mitra"
   },
@@ -41,6 +43,7 @@
   {
    "fieldname": "indexno",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "indexno",
    "unique": 1
   },
@@ -65,7 +68,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-27 21:24:59.269430",
+ "modified": "2025-08-13 12:15:06.859736",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Biometric Attendance Log",

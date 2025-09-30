@@ -28,6 +28,8 @@
   "region",
   "geo_mitra",
   "customer_parent_account",
+  "error_from_erp",
+  "customer_code",
   "column_break_ndzw",
   "status",
   "territory",
@@ -48,7 +50,8 @@
   "geo_bank_statement",
   "geolife_dealership_agreement",
   "dealer_location_image",
-  "dealer_shop_image"
+  "dealer_shop_image",
+  "amended_from"
  ],
  "fields": [
   {
@@ -324,11 +327,33 @@
    "fieldname": "customer_parent_account",
    "fieldtype": "Data",
    "label": "Customer Parent Account"
+  },
+  {
+   "fieldname": "error_from_erp",
+   "fieldtype": "Long Text",
+   "label": "Error From ERP",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_code",
+   "fieldtype": "Data",
+   "label": "Customer Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Proposed Dealer",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-04 11:53:51.819865",
+ "modified": "2025-06-09 14:20:00.466297",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Proposed Dealer",
