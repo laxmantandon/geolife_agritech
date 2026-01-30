@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-12 14:09:22.358864",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_fg1k",
+  "amended_from",
+  "quiz_name",
+  "from_date",
+  "to_date",
+  "description",
+  "total_questions",
+  "points",
+  "is_completed",
+  "faq"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_fg1k",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "My Quiz",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "quiz_name",
+   "fieldtype": "Data",
+   "label": "Quiz Name"
+  },
+  {
+   "fieldname": "total_questions",
+   "fieldtype": "Int",
+   "label": "Total Questions"
+  },
+  {
+   "fieldname": "points",
+   "fieldtype": "Int",
+   "label": "Points"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_completed",
+   "fieldtype": "Check",
+   "label": "is_completed"
+  },
+  {
+   "fieldname": "faq",
+   "fieldtype": "Table",
+   "label": "FAQ",
+   "options": "Training Video FAQ Details"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description",
+   "max_height": "100px"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-12 15:18:50.591828",
+ "modified_by": "Administrator",
+ "module": "My Training",
+ "name": "My Quiz",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

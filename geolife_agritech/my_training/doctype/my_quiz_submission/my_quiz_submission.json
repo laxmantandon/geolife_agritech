@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-12 14:21:01.244338",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "quiz",
+  "geo_mitra",
+  "correct_answers",
+  "total_questions",
+  "total_points",
+  "obtained_points",
+  "percentage",
+  "submission_date",
+  "status",
+  "answer"
+ ],
+ "fields": [
+  {
+   "fieldname": "quiz",
+   "fieldtype": "Link",
+   "label": "Quiz",
+   "options": "My Quiz"
+  },
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "correct_answers",
+   "fieldtype": "Int",
+   "label": "Correct Answers"
+  },
+  {
+   "fieldname": "total_points",
+   "fieldtype": "Int",
+   "label": "Total Points"
+  },
+  {
+   "fieldname": "obtained_points",
+   "fieldtype": "Int",
+   "label": "Obtained Points"
+  },
+  {
+   "fieldname": "percentage",
+   "fieldtype": "Percent",
+   "label": "Percentage"
+  },
+  {
+   "fieldname": "submission_date",
+   "fieldtype": "Datetime",
+   "label": "Submission Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "answer",
+   "fieldtype": "Table",
+   "label": "Answers",
+   "options": "My Quiz Answers"
+  },
+  {
+   "fieldname": "total_questions",
+   "fieldtype": "Data",
+   "label": "total_questions"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-12 19:15:11.989313",
+ "modified_by": "Administrator",
+ "module": "My Training",
+ "name": "My Quiz Submission",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -11,9 +11,12 @@
   "scquence_id",
   "description",
   "video_link",
+  "image",
+  "video_url",
   "session",
   "course",
-  "qanda"
+  "qanda",
+  "shareable"
  ],
  "fields": [
   {
@@ -66,11 +69,28 @@
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Scquence ID"
+  },
+  {
+   "fieldname": "video_url",
+   "fieldtype": "Long Text",
+   "label": "Video URL",
+   "max_height": "50px"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "shareable",
+   "fieldtype": "Check",
+   "label": "Shareable"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-08-11 14:46:51.069931",
+ "modified": "2026-01-27 15:20:12.227768",
  "modified_by": "Administrator",
  "module": "My Training",
  "name": "Training Videos",

@@ -6,6 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "training_video",
+  "video_title",
   "progress",
   "training_course",
   "training_session",
@@ -61,11 +62,17 @@
    "fieldname": "watch_time",
    "fieldtype": "Int",
    "label": "Watch Time"
+  },
+  {
+   "fetch_from": "training_video.title",
+   "fieldname": "video_title",
+   "fieldtype": "Data",
+   "label": "Video Title"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-27 21:24:59.619007",
+ "modified": "2025-11-01 16:28:05.588753",
  "modified_by": "Administrator",
  "module": "My Training",
  "name": "Training Video Progress",

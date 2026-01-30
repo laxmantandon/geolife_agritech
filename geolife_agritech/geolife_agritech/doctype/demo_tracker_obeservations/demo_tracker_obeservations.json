@@ -20,6 +20,7 @@
  ],
  "fields": [
   {
+   "fetch_from": "demo_tracker_item.demo_tracker",
    "fieldname": "demo_tracker",
    "fieldtype": "Link",
    "label": "Demo Tracker",
@@ -29,7 +30,7 @@
    "fieldname": "demo_tracker_item",
    "fieldtype": "Link",
    "label": "Demo Tracker Item",
-   "options": "Demo Tracker Items"
+   "options": "Demo Tracker Schedule and Products Selection"
   },
   {
    "fieldname": "plot_result",
@@ -89,7 +90,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-27 21:24:57.160637",
+ "modified": "2025-12-20 17:44:54.815508",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Demo Tracker Obeservations",

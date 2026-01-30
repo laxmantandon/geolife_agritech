@@ -29,6 +29,7 @@ def get_attendance(emp):
             da.posting_date between %s and %s
             AND da.geo_mitra=%s
             AND atm.activity_type='End Day'
+            AND gm.custom_status in ('Active','On Notice')
         ORDER BY
             da.posting_date DESC
     """, (frappe.utils.add_to_date(frappe.utils.today(), days=-1), frappe.utils.add_to_date(frappe.utils.today()), emp.get("name")), as_dict=1)
@@ -94,5 +95,6 @@ def get_attendance(emp):
     url= f"{url}/api/method/attendance_sync"
     mdata={'adata':[attendance_data]}
     my_req = make_post_request(url, data=json.dumps(mdata), headers=headers)    
+    frappe.log_error("sync data payload of attendance",mdata)
 
     frappe.log_error("sync Errror of attendance",my_req)

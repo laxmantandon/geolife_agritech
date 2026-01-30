@@ -122,10 +122,10 @@ scheduler_events = {
 	],
     "cron":
 		{
-        "00 03 * * 1-7": [
+        "59 23 * * 1-7": [
 			"geolife_agritech.v1.geolife_api.Evening_7pm_Notifications"
 			],
-        "30 03 * * *": [
+        "30 00 * * *": [
 			"geolife_agritech.v1.scheduler_jobs.attendance_sync"
 			]
 		},

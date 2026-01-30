@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-12 15:36:29.066516",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "question",
+  "question_name",
+  "selected_answer",
+  "correct_answer",
+  "is_correct",
+  "points",
+  "obtained_points"
+ ],
+ "fields": [
+  {
+   "fieldname": "question",
+   "fieldtype": "Link",
+   "label": "Question",
+   "options": "Training Video FAQ Details"
+  },
+  {
+   "fieldname": "question_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Question Name"
+  },
+  {
+   "fieldname": "selected_answer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Selected Answer"
+  },
+  {
+   "fieldname": "correct_answer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Correct Answer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_correct",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Is Correct"
+  },
+  {
+   "columns": 1,
+   "fieldname": "points",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Points"
+  },
+  {
+   "columns": 1,
+   "fieldname": "obtained_points",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Obtained Points"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-20 15:22:28.384576",
+ "modified_by": "Administrator",
+ "module": "My Training",
+ "name": "My Quiz Answers",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

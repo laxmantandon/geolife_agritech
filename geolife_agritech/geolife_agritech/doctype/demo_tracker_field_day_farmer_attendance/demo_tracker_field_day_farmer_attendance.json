@@ -39,6 +39,7 @@
    "label": "Remarks"
   },
   {
+   "fetch_from": "demo_tracker_item.demo_tracker",
    "fieldname": "demo_tracker",
    "fieldtype": "Link",
    "label": "Demo Tracker",
@@ -48,7 +49,7 @@
    "fieldname": "demo_tracker_item",
    "fieldtype": "Link",
    "label": "Demo Tracker Item",
-   "options": "Demo Tracker Items"
+   "options": "Demo Tracker Schedule and Products Selection"
   },
   {
    "fieldname": "farmer_attendance_sheet",
@@ -58,7 +59,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-04-16 12:31:19.930399",
+ "modified": "2025-12-20 18:05:59.832700",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Demo Tracker Field Day Farmer Attendance",

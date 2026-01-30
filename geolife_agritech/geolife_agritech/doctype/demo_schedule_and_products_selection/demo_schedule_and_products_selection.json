@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-06 16:15:03.977999",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "crop_stage",
+  "demo_tracker",
+  "scheduler_for_next_visit_section",
+  "field_date",
+  "next_application_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "crop_stage",
+   "fieldtype": "Link",
+   "label": "Crop Stage",
+   "options": "Crop Stage"
+  },
+  {
+   "fieldname": "demo_tracker",
+   "fieldtype": "Link",
+   "label": "Demo Tracker",
+   "options": "Demo Tracker"
+  },
+  {
+   "fieldname": "scheduler_for_next_visit_section",
+   "fieldtype": "Section Break",
+   "label": "Scheduler For Next Visit"
+  },
+  {
+   "fieldname": "field_date",
+   "fieldtype": "Date",
+   "label": "Select Field Date"
+  },
+  {
+   "fieldname": "next_application_date",
+   "fieldtype": "Date",
+   "label": "Select Next Application Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-06 16:19:51.826773",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Schedule and Products Selection",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

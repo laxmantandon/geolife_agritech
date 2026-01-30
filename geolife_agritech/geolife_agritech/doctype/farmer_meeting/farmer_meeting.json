@@ -10,6 +10,7 @@
   "agenda",
   "location",
   "no_attendees",
+  "count_stress_free_coupon",
   "notes",
   "image",
   "employee_location",
@@ -22,7 +23,9 @@
   "farmers_image",
   "geo_mitra",
   "dealer",
+  "nearest_dealer_name",
   "authrised_dealer",
+  "authrised_dealer_name",
   "market",
   "marketing_coordinator"
  ],
@@ -125,11 +128,28 @@
    "fieldtype": "Link",
    "label": "Marketing Coordinator",
    "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "dealer.dealer_name",
+   "fieldname": "nearest_dealer_name",
+   "fieldtype": "Data",
+   "label": "Nearest Dealer Name"
+  },
+  {
+   "fetch_from": "authrised_dealer.dealer_name",
+   "fieldname": "authrised_dealer_name",
+   "fieldtype": "Data",
+   "label": "Authrised Dealer Name"
+  },
+  {
+   "fieldname": "count_stress_free_coupon",
+   "fieldtype": "Int",
+   "label": "Stress Free Coupon Count"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-16 18:07:20.054938",
+ "modified": "2026-01-28 12:09:47.867184",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Farmer Meeting",

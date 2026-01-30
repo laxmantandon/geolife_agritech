@@ -557,6 +557,282 @@ def crop_seminar():
         return
 
 @frappe.whitelist()
+def activity_track_list():
+    try:
+        data = frappe.form_dict
+        filters = []
+        date_filters = []
+        where_conditions = []
+        values = []
+        
+        if data.get('from_date') and data.get('to_date'):
+            where_conditions.append("posting_date BETWEEN %s AND %s")
+            values.extend([data.get('from_date'), data.get('to_date')])
+        
+        if data.get('geo_mitra'):
+            where_conditions.append("geo_mitra = %s")
+            values.append(data.get('geo_mitra'))
+            
+        if data.get('badgeFilter'):
+            where_conditions.append("activity_name = %s")
+            values.append(f" {data.get('badgeFilter')}")
+        
+        if data.get('activity_type'):
+            if data.get('activity_type')==' All Activity':
+                pass
+            elif data.get('activity_type')==' Other Visit':
+                where_conditions.append("(farmer IS NULL OR farmer = '') AND (dealer IS NULL OR dealer = '')")
+                
+            
+            else:
+                where_conditions.append("activity_name = %s")
+                values.append(f"{data.get('activity_type')}")
+        
+        where_clause = " AND ".join(where_conditions) if where_conditions else "1=1"
+        
+        # Pagination
+        page = int(data.get('page', 1))
+        page_size = int(data.get('page_size', 100))
+        offset = (page - 1) * page_size
+        
+        # Counts
+        farmer_count_sql = f"SELECT COUNT(*) FROM `tabDaily Activity` WHERE {where_clause} AND farmer IS NOT NULL AND farmer != ''"
+        dealer_count_sql = f"SELECT COUNT(*) FROM `tabDaily Activity` WHERE {where_clause} AND dealer IS NOT NULL AND dealer != ''"
+        other_count_sql = f"SELECT COUNT(*) FROM `tabDaily Activity` WHERE {where_clause} AND (farmer IS NULL OR farmer = '') AND (dealer IS NULL OR dealer = '')"
+        
+        counts = {
+            'farmer_activity': frappe.db.sql(farmer_count_sql, values)[0][0] if values else frappe.db.sql(farmer_count_sql)[0][0],
+            'dealer_activity': frappe.db.sql(dealer_count_sql, values)[0][0] if values else frappe.db.sql(dealer_count_sql)[0][0],
+            'other_activity': frappe.db.sql(other_count_sql, values)[0][0] if values else frappe.db.sql(other_count_sql)[0][0]
+        }
+        
+        # Activity list with pagination and child table join
+        activity_sql = f"""
+            SELECT da.*
+            FROM `tabDaily Activity` da
+            WHERE {where_clause}
+            ORDER BY da.posting_date DESC, da.name
+            LIMIT %s OFFSET %s
+        """
+        home_data =[]
+        home_data = frappe.db.sql(activity_sql, values + [page_size, offset], as_dict=True)
+        for h in home_data:
+            activity = frappe.get_doc("Daily Activity", h.get('name'))
+            h.activity_type=[]
+            for d in activity.multi_activity_types :
+                h.activity_type.append(d.activity_type) 
+            image = get_doctype_images('Daily Activity', h.name, 1)  
+            if h.dealer:
+                dealer = frappe.get_doc("Dealer",h.dealer)
+                h.dealer = dealer.dealer_name
+
+            if h.farmer:
+                farmer = frappe.get_doc("My Farmer",h.farmer)
+                h.farmer = f"{farmer.first_name} {farmer.last_name or ''}"
+            # if h.multi_activity_types:
+            #     icon = frappe.get_doc("Activity Type", h.multi_activity_types[0].activity_type)
+            # if icon :
+            #     h.icon=icon.icon
+
+            if image:
+                h.image = image[0]['image']
+            else:
+                h.image = ""
+        
+         
+        frappe.response.message = {
+            'status': True,
+            'data': home_data,
+            'counts': counts,
+            'pagination': {
+                'page': page,
+                'page_size': page_size,
+                'offset': offset
+            }
+        }
+    except Exception as e:
+        frappe.response.message = {
+            'status': False,
+            'data': [],
+            'message': f'{e}'
+        }
+
+# @frappe.whitelist()
+# def get_retailer_list():
+#     geo_mitra_id = get_geomitra_from_userid(frappe.session.user)
+
+#     if frappe.request.method =="GET":
+#         try:
+#             _data = frappe.form_dict
+#             home_data = []
+#             if _data.get("dealer"):
+#                 home_data = frappe.db.get_list("Retailer", filters={"dealer":_data.get("dealer")}, fields=["*"])
+#             else:
+#                 home_data = frappe.db.get_list("Retailer", filters={"geo_mitra":geo_mitra_id}, fields=["*"])
+#             for h in home_data:
+#                 image = get_doctype_images('Retailer', h.name, 1)                
+
+#                 if image:
+#                     h.image = image[0]['image']
+#                 else:
+#                     h.image = ""
+            
+#             frappe.response["message"] = {
+#                 "status":True,
+#                 "message": "",
+#                 "data" : home_data
+#             }
+#             return
+#         except Exception as e:
+#             frappe.response["message"]={
+#                 "status":False,
+#                 "message":f"{e}"
+#             }
+
+@frappe.whitelist()
+def get_retailer_list():
+    geo_mitra_id = get_geomitra_from_userid(frappe.session.user)
+
+    if frappe.request.method == "GET":
+        try:
+            _data = frappe.form_dict
+            text = (_data.get("text") or "").strip()
+            dealer = _data.get("dealer")
+
+            filters = {}
+            if dealer:
+                filters["dealer"] = dealer
+            else:
+                filters["geo_mitra"] = ["descendants of (inclusive)", geo_mitra_id]
+
+            if text:
+                or_filters = [
+                    ["shop_name", "like", f"%{text}%"],
+                    ["retailer_name", "like", f"%{text}%"],
+                    ["mobile_no", "like", f"%{text}%"],
+                ]
+                home_data = frappe.db.get_list(
+                    "Retailer",
+                    filters=filters,
+                    or_filters=or_filters,
+                    fields=["*"],
+                )
+            else:
+                home_data = frappe.db.get_list(
+                    "Retailer",
+                    filters=filters,
+                    fields=["*"],
+                )
+
+            for h in home_data:
+                image = get_doctype_images('Retailer', h.name, 1)
+                h.image = image[0]['image'] if image else ""
+
+            frappe.response["message"] = {
+                "status": True,
+                "message": "",
+                "data": home_data,
+            }
+            return
+        except Exception as e:
+            frappe.response["message"] = {
+                "status": False,
+                "message": f"{e}",
+            }
+
+
+@frappe.whitelist()
+def retailer():
+    try:
+        geo_mitra = get_geomitra_from_userid(frappe.session.user)
+        data= frappe.form_dict
+        doc= frappe.get_doc({
+            "doctype":"Retailer",
+            "posting_date": frappe.utils.nowdate(),
+            "shop_name": data.get('shop_name'),
+            "retailer_name": data.get('retailer_name') or "",
+            "mobile_no": data.get('mobile_no'),
+            "address_1": data.get('address_1'),
+            "geo_mitra": geo_mitra or "",
+            "dealer": data.get('dealer'),
+            "location": data.get('mylocation') if data.get('mylocation') else '',
+            "longitude": data.get('longitude') if data.get('longitude') else '',
+            "latitude": data.get('latitude') if data.get('latitude') else '',
+            "status":"Pending"
+        }).insert()
+        if data.get('image'):
+                data = data['image'][0]
+                filename = doc.name
+                docname = doc.name
+                doctype = "Retailer"
+                image = ng_write_file(data, filename, docname, doctype, 'private')
+                doc.image = image
+        doc.save()
+        frappe.response["message"] = {
+            "status": True,
+            "message": "Retailer Added Successfully",
+        }
+
+    except Exception as e:
+        frappe.response["message"] = {
+            "status": False,
+            "message": f"{e}"
+        }
+        return
+        
+@frappe.whitelist()
+def submit_retailer():
+    try:
+        geo_mitra = get_geomitra_from_userid(frappe.session.user)
+        data= frappe.form_dict
+        doc= frappe.get_doc("Retailer", data.get('name'))
+        doc.approved_by = frappe.session.user
+        doc.approve_date = frappe.utils.nowdate()
+        doc.status = "Active"
+        doc.save()
+        # doc.submit()
+        frappe.db.commit()
+
+        frappe.response["message"] = {
+            "status": True,
+            "message": "Retailer Approved Successfully",
+        }
+
+    except Exception as e:
+        frappe.response["message"] = {
+            "status": False,
+            "message": f"{e}"
+        }
+        return
+    
+@frappe.whitelist()
+def reject_retailer():
+    try:
+        geo_mitra = get_geomitra_from_userid(frappe.session.user)
+        data= frappe.form_dict
+        doc= frappe.get_doc("Retailer", data.get('name'))
+        doc.rejected_by = frappe.session.user
+        doc.rejection_date = frappe.utils.nowdate()
+        doc.rejection_remark = data.get('rejection_remark')
+        doc.status="Rejected"
+        doc.save()
+        # doc.submit()
+        frappe.db.commit()
+
+        frappe.response["message"] = {
+            "status": True,
+            "message": "Retailer Rejected Successfully",
+        }
+
+    except Exception as e:
+        frappe.response["message"] = {
+            "status": False,
+            "message": f"{e}"
+        }
+        return
+        
+
+@frappe.whitelist()
 def activity_list():
     api_key  = frappe.request.headers.get("Authorization")[6:21]
     api_sec  = frappe.request.headers.get("Authorization")[22:]
@@ -628,6 +904,7 @@ def activity_list():
             "notes": _data.get('notes') if _data.get('notes') else '',
             "party_type": _data.get('type') if _data.get('type') else '',
             "dealer": _data.get('party') if _data.get('type')=='Dealer' else '',
+            "custom_retailer": _data.get('party') if _data.get('type')=='Retailer' else '',
             "farmer": _data.get('party') if _data.get('type')=='Farmer' else '',
             "geo_mitra":geo_mitra_id,
             "my_location": _data.get('mylocation') if _data.get('mylocation') else '',
@@ -816,8 +1093,9 @@ def get_attendance1():
             apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
             apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
             headers = {'Authorization': f'token {apikey}:{apisec}','Content-Type': 'application/json'}
+            current_month = frappe.form_dict.month or ""
             try:
-                response11 = requests.request("GET", f"{url}/api/method/employee_attendance_api?emp={geo_mitra.get('dgo_code')}", headers=headers)
+                response11 = requests.request("GET", f"{url}/api/method/employee_attendance_api?emp={geo_mitra.get('dgo_code')}&current_month={current_month}", headers=headers)
                 result = json.loads(response11.text)
                 # frappe.log_error("api responsedd1", result)
 
@@ -2578,10 +2856,10 @@ def all_sales_order_list():
                                     mym['images']=mymimage
 
                             sales_orders.append(mym)
-                if _data['order_status']!='Pending' or _data['order_status']!='Rejected' or _data['order_status']=='':
+                if _data['order_status']!='Pending' or _data['order_status']!='Rejected':
                     response = requests.request("GET", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer=all&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}", headers=headers)
-                    # frappe.log_error("response sales order erp list",json.loads(response.text))
-                    # frappe.log_error("URL", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer=all&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}")
+                    frappe.log_error("response sales order erp list",json.loads(response.text))
+                    frappe.log_error("URL", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer=all&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}")
                     result = json.loads(response.text)
                     if result.get("message"):
                         for ord in result.get("message"):
@@ -3816,7 +4094,7 @@ def search_farmer():
                         `tabMy Farmer`
                     WHERE ((first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND geomitra_number = %s) 
                     AND village = %s 
-                    OR market IN %s
+                    OR market IN %s LIMIT 20
                 """, (text, text, text, geo_mitra_id, _data.get('village'), tuple(result)), as_dict=1)
             else:
                 geomitras = frappe.db.sql("""
@@ -3824,8 +4102,9 @@ def search_farmer():
                         *
                     FROM
                         `tabMy Farmer`
-                    WHERE ((first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND geomitra_number = %s) 
-                    OR market IN %s
+                    WHERE (first_name LIKE %s OR last_name LIKE %s OR mobile_number LIKE %s) AND (geomitra_number = %s
+                    OR market IN %s)
+                    LIMIT 20
                 """, (text, text, text, geo_mitra_id, tuple(result)), as_dict=1)
         
         for g in geomitras:
@@ -5373,6 +5652,7 @@ def farmer_meeting():
             "location":_data['location'],
             "no_attendees":_data['no_attendees'],
             "notes": _data['notes'],
+            "count_stress_free_coupon":_data['count_stress_free_coupon'] or 0,
 
             "dealer_image_name": _data.get('dealer_image_name') if _data.get('dealer_image_name') else '' ,
             "so_name": _data.get('so_name') if _data.get('so_name') else '',

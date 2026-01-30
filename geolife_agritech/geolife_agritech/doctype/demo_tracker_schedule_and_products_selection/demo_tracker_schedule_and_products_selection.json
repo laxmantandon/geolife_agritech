@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-19 17:17:18.629857",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_mojt",
+  "crop_stage",
+  "geo_mitra",
+  "items",
+  "schedule_for_next_visits",
+  "select_field_date",
+  "select_next_application_date",
+  "demo_tracker",
+  "item_counts"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_mojt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "crop_stage",
+   "fieldtype": "Link",
+   "label": "Crop Stage",
+   "options": "Crop Stage"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Schedule and Products Selection Item"
+  },
+  {
+   "fieldname": "schedule_for_next_visits",
+   "fieldtype": "Heading",
+   "label": "Schedule for next Visits"
+  },
+  {
+   "fieldname": "select_field_date",
+   "fieldtype": "Date",
+   "label": "Select Field Date"
+  },
+  {
+   "fieldname": "select_next_application_date",
+   "fieldtype": "Date",
+   "label": "Select Next Application Date"
+  },
+  {
+   "fieldname": "demo_tracker",
+   "fieldtype": "Link",
+   "label": "Demo Tracker",
+   "options": "Demo Tracker"
+  },
+  {
+   "fieldname": "item_counts",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "item_counts",
+   "read_only": 1
+  },
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-20 13:17:10.906124",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Demo Tracker Schedule and Products Selection",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

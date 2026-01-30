@@ -1,0 +1,161 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-17 12:24:05.199382",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "stock_entry_type",
+  "erp_stock_entry_id",
+  "issue_for_demo",
+  "issue_for_pop",
+  "posting_date",
+  "branch",
+  "geo_mitra",
+  "from_geo_mitra",
+  "from_geo_mitra_name",
+  "geo_mitra_name",
+  "sales_person",
+  "items",
+  "grand_total",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "items",
+   "options": "Stock Entry Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stock_entry_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Stock Entry Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "erp_stock_entry_id",
+   "fieldtype": "Data",
+   "label": "ERP Stock Entry ID",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "issue_for_demo",
+   "fieldtype": "Check",
+   "label": "issue_for_demo",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "issue_for_pop",
+   "fieldtype": "Check",
+   "label": "issue_for_pop",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "geo_mitra.sales_person_name",
+   "fieldname": "geo_mitra_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Geo Mitra Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sales Person",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "from_geo_mitra",
+   "fieldtype": "Link",
+   "label": "From Geo Mitra",
+   "options": "Geo Mitra",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "from_geo_mitra.sales_person_name",
+   "fieldname": "from_geo_mitra_name",
+   "fieldtype": "Data",
+   "label": "From Geo Mitra Name",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-12-19 15:29:10.067756",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Stock Entry",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

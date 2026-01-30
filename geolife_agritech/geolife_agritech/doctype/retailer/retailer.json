@@ -7,16 +7,41 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "basic_details_section",
+  "shop_name",
   "retailer_name",
   "mobile_no",
+  "posting_date",
+  "image",
+  "column_break_zwgf",
   "geo_mitra",
-  "posting_date"
+  "geo_mitra_name",
+  "dealer",
+  "dealer_name",
+  "status",
+  "section_break_bleg",
+  "latitude",
+  "longitude",
+  "location",
+  "approved_by",
+  "approve_date",
+  "rejected_by",
+  "rejection_date",
+  "rejection_remark",
+  "column_break_hxvq",
+  "address_1",
+  "address_2",
+  "city",
+  "pincode",
+  "state"
  ],
  "fields": [
   {
    "fieldname": "retailer_name",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Retailer Name"
   },
   {
@@ -36,11 +61,140 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
+  },
+  {
+   "fieldname": "dealer",
+   "fieldtype": "Link",
+   "label": "Dealer",
+   "options": "Dealer"
+  },
+  {
+   "fetch_from": "dealer.dealer_name",
+   "fieldname": "dealer_name",
+   "fieldtype": "Data",
+   "label": "Dealer Name"
+  },
+  {
+   "fieldname": "shop_name",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Shop Name"
+  },
+  {
+   "fieldname": "address_1",
+   "fieldtype": "Long Text",
+   "label": "Address 1",
+   "max_height": "50px"
+  },
+  {
+   "fieldname": "address_2",
+   "fieldtype": "Long Text",
+   "label": "Address 2",
+   "max_height": "50px"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "pincode",
+   "fieldtype": "Data",
+   "label": "Pincode"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Link",
+   "label": "State",
+   "options": "State"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Data",
+   "label": "latitude"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Data",
+   "label": "longitude"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "location"
+  },
+  {
+   "fieldname": "column_break_zwgf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "geo_mitra.sales_person_name",
+   "fieldname": "geo_mitra_name",
+   "fieldtype": "Data",
+   "label": "Geo Mitra Name"
+  },
+  {
+   "fieldname": "section_break_bleg",
+   "fieldtype": "Section Break",
+   "label": "Address And Location"
+  },
+  {
+   "fieldname": "column_break_hxvq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "basic_details_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Details"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nActive\nDisabled\nPending\nRejected"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved_by",
+   "options": "User"
+  },
+  {
+   "fieldname": "approve_date",
+   "fieldtype": "Date",
+   "label": "Approve Date"
+  },
+  {
+   "fieldname": "rejected_by",
+   "fieldtype": "Link",
+   "label": "Rejected By",
+   "options": "User"
+  },
+  {
+   "fieldname": "rejection_date",
+   "fieldtype": "Date",
+   "label": "Rejection Date"
+  },
+  {
+   "fieldname": "rejection_remark",
+   "fieldtype": "Long Text",
+   "label": "Rejection Remark",
+   "max_height": "50px"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-03 17:29:30.057558",
+ "modified": "2025-11-27 12:09:06.364968",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Retailer",

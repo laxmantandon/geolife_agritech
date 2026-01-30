@@ -1,0 +1,264 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"F7tlLUanwl\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Geolife Budget</span>\",\"col\":12}},{\"id\":\"f1AHFiKbIu\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Sales Person Budget Wizard\",\"col\":12}},{\"id\":\"yKbW6J6MDS\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"2LsrX1ve7x\",\"type\":\"card\",\"data\":{\"card_name\":\"Shortcuts 2\",\"col\":4}},{\"id\":\"gd27NqI5Nu\",\"type\":\"card\",\"data\":{\"card_name\":\"Shortcuts\",\"col\":4}},{\"id\":\"qoYVCFF9Tr\",\"type\":\"card\",\"data\":{\"card_name\":\"Shortcuts 3\",\"col\":4}},{\"id\":\"vfBiVJQpX4\",\"type\":\"card\",\"data\":{\"card_name\":\"Shortcuts 4\",\"col\":4}},{\"id\":\"hrh9XaS4Vt\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Map Integration\",\"col\":6}}]",
+ "creation": "2024-02-14 09:53:20.107351",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Sales Person Budget Wizard",
+   "label": "Sales Person Budget Wizard"
+  },
+  {
+   "custom_block_name": "Map Integration",
+   "label": "Map Integration"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "money-coins-1",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Geolife Budget",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Shortcuts",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Zone",
+   "link_count": 0,
+   "link_to": "Zone",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area",
+   "link_count": 0,
+   "link_to": "Area",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Territory",
+   "link_count": 0,
+   "link_to": "Territory",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Headquarter",
+   "link_count": 0,
+   "link_to": "Headquarter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "State",
+   "link_count": 0,
+   "link_to": "State",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fiscal Year",
+   "link_count": 0,
+   "link_to": "Fiscal Year",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Shortcuts 2",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Planning",
+   "link_count": 0,
+   "link_to": "Sales Planning",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Team",
+   "link_count": 0,
+   "link_to": "Sales Team",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Designation",
+   "link_count": 0,
+   "link_to": "Designation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Target",
+   "link_count": 0,
+   "link_to": "Sales Target",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "India",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Shortcuts 3",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Crop Calender",
+   "link_count": 0,
+   "link_to": "Crop Calendar",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Crop Cycle",
+   "link_count": 0,
+   "link_to": "Crop Cycle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Product Bundle",
+   "link_count": 0,
+   "link_to": "Product Bundle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item group ",
+   "link_count": 0,
+   "link_to": "Item Group",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Shortcuts 4",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Product Target",
+   "link_count": 0,
+   "link_to": "Product Target",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Dealer",
+   "link_count": 0,
+   "link_to": "Dealer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Dealer Target",
+   "link_count": 0,
+   "link_to": "Dealer Target",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Collection Target",
+   "link_count": 0,
+   "link_to": "Collection Target",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-12-23 14:25:30.814966",
+ "modified_by": "ayush@eactive.in",
+ "module": "Geolife Budget",
+ "name": "Geolife Budget",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [],
+ "title": "Geolife Budget"
+}

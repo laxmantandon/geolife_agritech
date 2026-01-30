@@ -19,7 +19,8 @@
   "nearest_dealer",
   "section_break_vvan",
   "demo_type",
-  "items"
+  "items",
+  "amended_from"
  ],
  "fields": [
   {
@@ -53,10 +54,12 @@
    "label": "Farmer Last Name"
   },
   {
+   "fetch_from": "farmer.village",
    "fieldname": "village",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Village",
-   "options": "Village"
+   "options": "Village",
+   "read_only": 1
   },
   {
    "fieldname": "crop",
@@ -104,9 +107,20 @@
    "fieldtype": "Table",
    "label": "Items",
    "options": "Demo Tracker Items"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Demo Tracker",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [
   {
    "link_doctype": "Demo Tracker Field Day Farmer Attendance",
@@ -119,9 +133,13 @@
   {
    "link_doctype": "Demo Tracker Media Upload",
    "link_fieldname": "demo_tracker"
+  },
+  {
+   "link_doctype": "Demo Tracker Schedule and Products Selection",
+   "link_fieldname": "demo_tracker"
   }
  ],
- "modified": "2025-04-16 11:09:08.807161",
+ "modified": "2025-12-22 16:24:45.344289",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Demo Tracker",

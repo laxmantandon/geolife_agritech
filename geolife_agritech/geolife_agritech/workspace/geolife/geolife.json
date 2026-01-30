@@ -56,6 +56,7 @@
    "link_to": "Stage Wise Inventory",
    "link_type": "Report",
    "onboard": 0,
+   "report_ref_doctype": "Crop Project",
    "type": "Link"
   },
   {
@@ -66,6 +67,7 @@
    "link_to": "Crop Notification Calendar",
    "link_type": "Report",
    "onboard": 0,
+   "report_ref_doctype": "Crop Project",
    "type": "Link"
   },
   {
@@ -76,6 +78,7 @@
    "link_to": "Inventory Planning",
    "link_type": "Report",
    "onboard": 0,
+   "report_ref_doctype": "Crop Project",
    "type": "Link"
   },
   {
@@ -147,8 +150,8 @@
    "type": "Link"
   }
  ],
- "modified": "2024-08-20 14:53:29.972145",
- "modified_by": "developer@geolife.com",
+ "modified": "2025-12-23 14:25:30.725404",
+ "modified_by": "ayush@eactive.in",
  "module": "Geolife Agritech",
  "name": "Geolife",
  "number_cards": [],
