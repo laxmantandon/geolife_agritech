@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-06-02 13:46:07.665205",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dealer",
+  "dealer_name",
+  "ob_before_31_march_2025",
+  "current_year",
+  "total_outstanding",
+  "column_break_k4qb",
+  "date_of_dealer_visit",
+  "estimate_collection_ob",
+  "estimate_collection_current_year",
+  "estimate_collection_advance",
+  "total_estimate_collection"
+ ],
+ "fields": [
+  {
+   "fieldname": "dealer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Dealer",
+   "options": "Dealer"
+  },
+  {
+   "fetch_from": "dealer.dealer_name",
+   "fieldname": "dealer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Dealer Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "ob_before_31_march_2025",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "OB (Before 31 March 2025)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "current_year",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Year Outstanding",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_outstanding",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Outstanding",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_k4qb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_dealer_visit",
+   "fieldtype": "Date",
+   "label": "Date of Dealer Visit"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "estimate_collection_ob",
+   "fieldtype": "Float",
+   "label": "Estimate Collection (OB)",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "estimate_collection_current_year",
+   "fieldtype": "Float",
+   "label": "Estimate Collection (Current Year)",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "estimate_collection_advance",
+   "fieldtype": "Float",
+   "label": "Estimate Collection (Advance)",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_estimate_collection",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Estimate collection",
+   "precision": "2",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-30 18:10:33.447816",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Estimate Collection Target Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

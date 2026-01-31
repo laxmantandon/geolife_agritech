@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-06-02 13:24:59.429307",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_target",
+  "sales_team",
+  "user_name",
+  "user_email",
+  "multiple_territory",
+  "state",
+  "column_break_keey",
+  "naming_series",
+  "posting_date",
+  "designation",
+  "fiscal_year",
+  "target",
+  "month",
+  "branch",
+  "section_break_oo92",
+  "fetch_all_dealer_details",
+  "dealers",
+  "section_break_9hus",
+  "total_ob_before_31_march_2025",
+  "total_current_year_outstanding",
+  "dealer_total_outstanding",
+  "column_break_pmsb",
+  "total_estimate_collection_ob",
+  "total_estimate_collection_current_year",
+  "total_estimate_collection_advance",
+  "dealer_total_estimate_collection",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_target",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Target",
+   "options": "Sales Target",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.sales_team",
+   "fieldname": "sales_team",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Team",
+   "options": "Geo Mitra",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "sales_target.user_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.user_email",
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "multiple_territory",
+   "fieldtype": "Table",
+   "label": "Multiple Territory",
+   "options": "MRM Collection Planning Multiple Territory"
+  },
+  {
+   "fetch_from": "sales_target.state",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_keey",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "{user_name}.-ECT-.{month}.-.####",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_target.target",
+   "fieldname": "target",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Target",
+   "read_only": 1
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_oo92",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fetch_all_dealer_details",
+   "fieldtype": "Button",
+   "label": "Fetch All Dealer Details"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "dealers",
+   "fieldtype": "Table",
+   "label": "Dealers",
+   "options": "Estimate Collection Target Item"
+  },
+  {
+   "fieldname": "section_break_9hus",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_ob_before_31_march_2025",
+   "fieldtype": "Float",
+   "label": "Total OB (Before 31 March 2025)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_current_year_outstanding",
+   "fieldtype": "Float",
+   "label": "Total Current Year Outstanding",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "dealer_total_outstanding",
+   "fieldtype": "Float",
+   "label": "Dealer Total Outstanding",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_pmsb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_estimate_collection_ob",
+   "fieldtype": "Float",
+   "label": "Total Estimate Collection (OB)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_estimate_collection_current_year",
+   "fieldtype": "Float",
+   "label": "Total Estimate Collection (Current Year)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_estimate_collection_advance",
+   "fieldtype": "Float",
+   "label": "Total Estimate Collection (Advance)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "dealer_total_estimate_collection",
+   "fieldtype": "Float",
+   "label": "Dealer Total Estimate collection",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Estimate Collection Target",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-30 18:10:31.391949",
+ "modified_by": "Administrator",
+ "module": "Geolife Budget",
+ "name": "Estimate Collection Target",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

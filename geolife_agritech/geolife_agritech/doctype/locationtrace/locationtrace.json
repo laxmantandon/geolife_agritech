@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-09-15 18:10:15.073038",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "trace_section",
+  "user_id",
+  "latitude",
+  "longitude",
+  "accuracy",
+  "timestamp",
+  "device_id",
+  "network_status",
+  "source",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "trace_section",
+   "fieldtype": "Section Break",
+   "label": "trace"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Data",
+   "label": "User name"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "latitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "longitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "accuracy",
+   "fieldtype": "Float",
+   "label": "accuracy"
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "timestamp"
+  },
+  {
+   "fieldname": "device_id",
+   "fieldtype": "Data",
+   "label": "device_id"
+  },
+  {
+   "fieldname": "network_status",
+   "fieldtype": "Select",
+   "label": "network_status",
+   "options": "Online\nOffline"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "label": "source",
+   "options": "GPS\nCell Tower\nWiFi\nUnknown"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-30 18:09:28.182163",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "locationtrace",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{pop_material}-{language}",
+ "creation": "2025-04-08 17:15:41.876898",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "language",
+  "pop_material",
+  "my_company",
+  "status",
+  "naming_series",
+  "image",
+  "tags"
+ ],
+ "fields": [
+  {
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Language",
+   "options": "My Language",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pop_material",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "POP Material",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "my_company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "My Company",
+   "options": "MY Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nDisabled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": ".{pop_material}-.{language}"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "Small Text",
+   "label": "Tags",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "POP Material Product",
+   "link_fieldname": "pop_material"
+  }
+ ],
+ "modified": "2026-01-30 18:09:31.007141",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Company POP Material",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

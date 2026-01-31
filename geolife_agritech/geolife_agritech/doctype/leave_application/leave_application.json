@@ -207,7 +207,7 @@
  "is_submittable": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2024-07-22 13:38:20.168392",
+ "modified": "2026-01-30 18:09:43.630954",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Leave Application",
@@ -215,6 +215,7 @@
  "owner": "Administrator",
  "permissions": [],
  "search_fields": "geo_mitra,geo_mitra_name,leave_type,from_date,to_date,total_leave_days",
+ "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
  "title_field": "geo_mitra_name"

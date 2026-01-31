@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-08 17:54:59.726093",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "product",
+  "product_name",
+  "product_image",
+  "pop_material",
+  "pop_material_name",
+  "my_company",
+  "tags",
+  "status",
+  "language"
+ ],
+ "fields": [
+  {
+   "fieldname": "product",
+   "fieldtype": "Data",
+   "label": "Product (Item Group)",
+   "options": "About Us Settings"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "label": "Product Name"
+  },
+  {
+   "fieldname": "product_image",
+   "fieldtype": "Attach Image",
+   "label": "Product Image"
+  },
+  {
+   "fieldname": "pop_material",
+   "fieldtype": "Link",
+   "label": "Pop Material",
+   "options": "Company POP Material"
+  },
+  {
+   "fetch_from": "pop_material.pop_material",
+   "fieldname": "pop_material_name",
+   "fieldtype": "Data",
+   "label": "POP Material Name"
+  },
+  {
+   "fetch_from": "pop_material.my_company",
+   "fieldname": "my_company",
+   "fieldtype": "Link",
+   "label": "My Company",
+   "options": "MY Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "Small Text",
+   "label": "Tags"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nDisabled"
+  },
+  {
+   "fetch_from": "pop_material.language",
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Language",
+   "options": "My Language",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "POP Material Resources",
+   "link_fieldname": "pop_material"
+  }
+ ],
+ "modified": "2026-01-30 18:09:30.729681",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "POP Material Product",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
