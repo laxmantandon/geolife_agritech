@@ -12,6 +12,7 @@
   "dealer_code",
   "posting_date",
   "geo_mitra",
+  "image",
   "dealer_stock_details_section",
   "stock",
   "naming_series",
@@ -68,12 +69,17 @@
    "fieldtype": "Data",
    "label": "Dealer Code",
    "read_only": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-30 18:09:25.228417",
+ "modified": "2026-02-18 17:09:59.874379",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Dealer Stock",

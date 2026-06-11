@@ -9,10 +9,13 @@
  "engine": "InnoDB",
  "field_order": [
   "dealer",
+  "created_by_dealer",
   "customer",
   "customer_name",
   "type",
   "geo_mitra",
+  "parent_geo_mitra",
+  "parent_geo_mitra_user_id",
   "geo_mitra_name",
   "products",
   "employee_location",
@@ -105,12 +108,34 @@
    "fieldtype": "Data",
    "label": "Geo Mitra Name",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "created_by_dealer",
+   "fieldtype": "Check",
+   "label": "Created By Dealer"
+  },
+  {
+   "fetch_from": "geo_mitra.parent_geo_mitra",
+   "fieldname": "parent_geo_mitra",
+   "fieldtype": "Link",
+   "label": "Parent Geo Mitra",
+   "options": "Geo Mitra",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "parent_geo_mitra.linked_user",
+   "fieldname": "parent_geo_mitra_user_id",
+   "fieldtype": "Link",
+   "label": "Parent Geo Mitra USER ID",
+   "options": "User",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-30 18:09:27.607225",
+ "modified": "2026-06-03 11:31:17.697671",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "GEO Orders",

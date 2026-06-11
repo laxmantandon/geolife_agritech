@@ -16,6 +16,14 @@ from operator import itemgetter
 
 
 
+def get_distance_between_coordinates(lat1, long1, lat2, long2):
+	from math import asin, cos, pi, sqrt
+
+	r = 6371
+	p = pi / 180
+
+	a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((long2 - long1) * p)) / 2
+	return 2 * r * asin(sqrt(a)) * 1000
 
 @frappe.whitelist()
 def send_whatsapp(mobile_no,tamplate_name, param):
@@ -93,7 +101,8 @@ def generate_otp(mobile_no,hashcode):
             "accept": "application/json",
             "content-type": "application/json"
         }
-        url = f"http://admin.bulksmslogin.com/api/otp.php?authkey=349851AFBrdHyz5632c330aP1&mobile=91{mobile_no}&message={otp} is your OTP for Geolife App Login, OTP is valid for 3 minutes. Do not share it with anyone. Regards, Team Geolife Digital. {hashcode}&sender=GEOLIF&otp={otp}&DLT_TE_ID=1107169060755325316"
+        # url = f"http://admin.bulksmslogin.com/api/otp.php?authkey=349851AFBrdHyz5632c330aP1&mobile=91{mobile_no}&message={otp} is your OTP for Geolife App Login, OTP is valid for 3 minutes. Do not share it with anyone. Regards, Team Geolife Digital. {hashcode}&sender=GEOLIF&otp={otp}&DLT_TE_ID=1107169060755325316"
+        url = f"http://transsms.b2bsms.in/api/otp.php?authkey=349851ACd7HJhqMq75fe037e9P1&mobile=91{mobile_no}&message={otp} is your OTP for Geolife App Login, OTP is valid for 3 minutes. Do not share it with anyone. Regards, Team Geolife Digital. -GEOLIFE -GEOLIFE&sender=GEOLIF&otp={otp}&otp_expiry=1&otp_length=4&DLT_TE_ID=1107177260148119021"
         r = requests.get(url, headers=sms_headers)
         
         doc = frappe.get_doc({
@@ -897,6 +906,26 @@ def activity_list():
                 "user_email": user_email
             }
             return
+        # if frappe.session.user in ["shaileshdgo@geolife.com","7419777501@geolife.com","akola.region@geolife.com"]:
+        
+        # if _data.get('type')=='Dealer' :
+        #     custom_latitude= frappe.db.get_value("Dealer", _data.get('party'), "custom_latitude")
+        #     custom_longitude= frappe.db.get_value("Dealer", _data.get('party'), "custom_longitude")
+        #     if not custom_latitude or not custom_longitude:
+        #         frappe.response["message"] = {
+        #             "status":False,
+        #             "message": "Activity cannot be enabled because the dealer location is missing or mismatched. Please contact the Digital Team immediately.",
+        #         }
+        #         return
+        #     distance = get_distance_between_coordinates(float(_data.get('latitude')), float(_data.get('longitude')), float(custom_latitude), float(custom_longitude))
+        #     if distance > 20:
+        #         frappe.response["message"] = {
+        #             "status":False,
+        #             "message": f"You must be within 20 meters of Customer shop location to add activity.{distance} is the current distance from the shop.",
+        #         }
+        #         # frappe.throw("You must be within {0} meters of your shift location to check in."),
+        #         return
+                    
         doc = frappe.get_doc({
             "doctype":"Daily Activity",
             "posting_date": frappe.utils.nowdate(),
@@ -936,7 +965,7 @@ def activity_list():
                         doc.session_started=now()
                         doc.save()
                         frappe.db.commit()
-                        videoData = frappe.db.get_list('Session Videos', filters={"session_date":frappe.utils.nowdate()}, fields=["name","session_date","youtube_video"])
+                        videoData = frappe.db.get_list('Session Videos', filters={"session_date":frappe.utils.nowdate()}, fields=["name","session_date","youtube_video","video_link"])
                         if videoData :
                             faq = frappe.get_doc('Session Videos',videoData[0].name)
                             videoData[0].faq = faq
@@ -2580,6 +2609,8 @@ def create_sales_order():
 def sales_order_list():
     api_key  = frappe.request.headers.get("Authorization")[6:21]
     api_sec  = frappe.request.headers.get("Authorization")[22:]
+    geomitra=None
+    is_dealer=False
 
     user_email = get_user_info(api_key, api_sec)
     if not user_email:
@@ -2590,24 +2621,28 @@ def sales_order_list():
         return
     
     elif frappe.request.method == "POST":
-        geo_mitra_id = get_geomitra_from_userid(user_email)
-        if geo_mitra_id == False:
-            frappe.response["message"] = {
-                "status": False,
-                "message": "Please map a geo mitra with this user",
-                "user_email": user_email
-            }
-            return
-        
-        geomitra = frappe.get_doc("Geo Mitra",geo_mitra_id)
-        _data = frappe.request.json
+        if not frappe.db.exists("Dealer",{'linked_user':frappe.session.user}):
+            geo_mitra_id = get_geomitra_from_userid(user_email)
+            if geo_mitra_id == False:
+                frappe.response["message"] = {
+                    "status": False,
+                    "message": "Please map a geo mitra with this user",
+                    "user_email": user_email
+                }
+                return
+            
+            geomitra = frappe.get_doc("Geo Mitra",geo_mitra_id)
+            _data = frappe.request.json
 
-        if not geomitra.get('dgo_code'):
-            frappe.response['message']={
-                "status":False,
-                "message":"Geo Mitra Employee code Name Not Found"
-            }
-            return
+            if not geomitra.get('dgo_code'):
+                frappe.response['message']={
+                    "status":False,
+                    "message":"Geo Mitra Employee code Name Not Found"
+                }
+                return
+        else:
+            is_dealer=True
+        _data = frappe.request.json
         url = frappe.db.get_single_value('GeoLife Setting', 'url')
         apikey = frappe.db.get_single_value('GeoLife Setting', 'api_key')
         apisec = frappe.db.get_single_value('GeoLife Setting', 'api_secret')
@@ -2741,7 +2776,11 @@ def sales_order_list():
         if dealer.get('dealer_code'):
             try:
                 if _data['order_status']!="Pending" or _data['order_status']!="Rejected" :
-                    response = requests.request("GET", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer={dealer.dealer_code}&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}", headers=headers)
+                    if is_dealer:
+                        response = requests.request("GET", f"{url}/api/method/mobile_api_for_sales_order_list?dealer={dealer.dealer_code}&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}", headers=headers)
+
+                    else:
+                        response = requests.request("GET", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer={dealer.dealer_code}&from_date={_data['from_date']}&to_date={_data['to_date']}&order_status={_data['order_status']}", headers=headers)
                     # frappe.log_error("response",json.loads(response.text))
                     # frappe.log_error("URL", f"{url}/api/method/mobile_api_for_sales_order_list?emp_id={geomitra.get('dgo_code') if geomitra.get('dgo_code') else ''}&dealer={dealer.dealer_code}")
                     result = json.loads(response.text)
@@ -2914,39 +2953,51 @@ def crop_create_sales_order():
     api_sec  = frappe.request.headers.get("Authorization")[22:]
 
     user_email = get_user_info(api_key, api_sec)
+    is_dealer=0
+    dealer_data=None
+    if frappe.db.exists({"doctype": "Dealer", "linked_user": frappe.session.user}):
+        is_dealer=1
+        dealer_data= frappe.get_doc("Dealer",{"linked_user": frappe.session.user})
+
+
     if not user_email:
         frappe.response["message"] = {
             "status": False,
             "message": "Unauthorised Access",
         }
         return
+
+    
     
     elif frappe.request.method == "POST":
         _data = frappe.request.json
-        if not _data.get('image'):
-            frappe.response["message"] = {
-                "status": False,
-                "message": "Upload Sales Order image with letter head",
-            }
-            return
-        geo_mitra_id = get_geomitra_from_userid(user_email)
+        geo_mitra_id = None
+        if not is_dealer:
 
+            if not _data.get('image'):
+                frappe.response["message"] = {
+                    "status": False,
+                    "message": "Upload Sales Order image with letter head",
+                }
+                return
+            geo_mitra_id = get_geomitra_from_userid(user_email)
+
+            
+            if geo_mitra_id == False:
+                frappe.response["message"] = {
+                    "status": False,
+                    "message": "Please map a geo mitra with this user",
+                    "user_email": user_email
+                }
+                return
         
-        if geo_mitra_id == False:
-            frappe.response["message"] = {
-                "status": False,
-                "message": "Please map a geo mitra with this user",
-                "user_email": user_email
-            }
-            return
-        
-        geomitra = frappe.get_doc("Geo Mitra",geo_mitra_id)
-        if not geomitra.get('sales_person_name'):
-            frappe.response['message']={
-                "status":False,
-                "message":"Geo Mitra Sales Person Name Not Found"
-            }
-            return
+            geomitra = frappe.get_doc("Geo Mitra",geo_mitra_id)
+            if not geomitra.get('sales_person_name'):
+                frappe.response['message']={
+                    "status":False,
+                    "message":"Geo Mitra Sales Person Name Not Found"
+                }
+                return
         dealer = frappe.get_doc("Dealer",_data["dealer_mobile"])
         _data["delivery_date"]=frappe.utils.nowdate()
         if dealer.dealer_code:
@@ -2955,7 +3006,8 @@ def crop_create_sales_order():
                     "doctype":"GEO Orders",
                     "posting_date": frappe.utils.nowdate(),
                     "dealer": _data['dealer_mobile'],
-                    "geo_mitra": geo_mitra_id,
+                    "geo_mitra": geo_mitra_id or dealer.get('sales_person') or dealer.get('area_manager') or dealer.get('regional_manager') or dealer.get('zonal_manager') or "",
+                    "created_by_dealer": 1 if is_dealer else 0
                 })
                 doc.insert()
 
@@ -5211,17 +5263,33 @@ def search_dealer_territory():
 
         # Get all territories in user’s tree
         territories = []
-        for t in [d.territory for d in geo_mitra.get('territory')]:
-            lft = frappe.db.get_value("Territory", t, "lft")
-            rgt = frappe.db.get_value("Territory", t, "rgt")
-            rows = frappe.db.sql(
-                """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
-                (lft, rgt),
-                as_dict=True
-            )
-            for r in rows:
-                if r.name not in territories:
-                    territories.append(r.name)
+        selected_markets = _data.get("markets") or []
+        selected_markets = [str(t).strip() for t in selected_markets if str(t).strip()]
+
+        if _data.get("markets"):
+            for market in selected_markets:
+                lft = frappe.db.get_value("Territory", market, "lft")
+                rgt = frappe.db.get_value("Territory", market, "rgt")
+                rows = frappe.db.sql(
+                    """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
+                    (lft, rgt),
+                    as_dict=True
+                )
+                for r in rows:
+                    if r.name not in territories:
+                        territories.append(r.name)
+        else:
+            for t in [d.territory for d in geo_mitra.get('territory')]:
+                lft = frappe.db.get_value("Territory", t, "lft")
+                rgt = frappe.db.get_value("Territory", t, "rgt")
+                rows = frappe.db.sql(
+                    """SELECT name FROM `tabTerritory` WHERE lft >= %s AND rgt <= %s""",
+                    (lft, rgt),
+                    as_dict=True
+                )
+                for r in rows:
+                    if r.name not in territories:
+                        territories.append(r.name)
 
         if not territories:
             frappe.response["message"] = {
@@ -5254,7 +5322,7 @@ def search_dealer_territory():
         if page and limit:
             # new app (with pagination)
             data_sql = f"""
-                SELECT name AS dealer, territory AS sales_person_name, custom_customer_active_type,
+                SELECT name AS dealer,name, territory AS sales_person_name, custom_customer_active_type,
                        custom_longitude, custom_latitude, dealer_name, qr_code, mobile_number, dealer_code
                 FROM `tabDealer`
                 WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)
@@ -5267,7 +5335,7 @@ def search_dealer_territory():
         else:
             # old app (limit fixed to 20)
             data_sql = f"""
-                SELECT name AS dealer, territory AS sales_person_name, custom_customer_active_type,
+                SELECT name AS dealer,name, territory AS sales_person_name, custom_customer_active_type,
                        custom_longitude, custom_latitude, dealer_name, qr_code, mobile_number, dealer_code
                 FROM `tabDealer`
                 WHERE (dealer_name LIKE %s OR mobile_number LIKE %s)

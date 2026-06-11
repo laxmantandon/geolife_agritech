@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-12 17:10:08.552540",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "geo_mitra",
+  "geo_mitra_name",
+  "posting_date",
+  "product",
+  "geo_mitra_home_banner",
+  "content_of_product",
+  "mode_of_action",
+  "dosage",
+  "action_time",
+  "usp_of_the_product"
+ ],
+ "fields": [
+  {
+   "fieldname": "geo_mitra",
+   "fieldtype": "Link",
+   "label": "Geo Mitra",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "geo_mitra.sales_person_name",
+   "fieldname": "geo_mitra_name",
+   "fieldtype": "Data",
+   "label": "Geo Mitra Name"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "content_of_product",
+   "fieldtype": "Small Text",
+   "label": "Content of Product"
+  },
+  {
+   "fieldname": "mode_of_action",
+   "fieldtype": "Small Text",
+   "label": "Mode of Action"
+  },
+  {
+   "fieldname": "dosage",
+   "fieldtype": "Data",
+   "label": "Dosage"
+  },
+  {
+   "fieldname": "action_time",
+   "fieldtype": "Small Text",
+   "label": "Action Time"
+  },
+  {
+   "fieldname": "usp_of_the_product",
+   "fieldtype": "Small Text",
+   "label": "USP Of The Product"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Link",
+   "label": "Product",
+   "options": "Product"
+  },
+  {
+   "fieldname": "geo_mitra_home_banner",
+   "fieldtype": "Link",
+   "label": "Geo Mitra Home Banner",
+   "options": "Geo Mitra Home Banner"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-13 15:24:46.465814",
+ "modified_by": "Administrator",
+ "module": "Geolife Agritech",
+ "name": "Product of The Day Form",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

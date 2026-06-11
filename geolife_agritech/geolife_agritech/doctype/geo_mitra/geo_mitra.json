@@ -42,7 +42,9 @@
   "is_dgo",
   "policy_title",
   "travel_expense_for",
-  "travel_expense_allowance"
+  "travel_expense_allowance",
+  "height",
+  "weight"
  ],
  "fields": [
   {
@@ -239,12 +241,22 @@
    "fieldname": "travel_expense_allowance",
    "fieldtype": "Float",
    "label": "Travel Expense Allowance"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Float",
+   "label": "Height"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2026-01-30 18:09:29.886671",
+ "modified": "2026-06-10 16:52:45.191641",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Geo Mitra",

@@ -11,6 +11,7 @@
   "dealer_name",
   "contact_person",
   "erp_dealer_name",
+  "eligible_for_insurance",
   "email_id",
   "linked_user",
   "mobile_number",
@@ -28,7 +29,21 @@
   "geomitra_number",
   "qr_code",
   "section_break_lc4tc",
-  "dgo_list"
+  "dgo_list",
+  "sales_team_section",
+  "sales_person",
+  "sales_person_name",
+  "sales_person_mobile_number",
+  "area_manager",
+  "area_manager_name",
+  "area_manager_mobile_number",
+  "regional_manager",
+  "regional_manager_name",
+  "regional_manager_mobile_number",
+  "zonal_manager",
+  "zonal_manager_name",
+  "zonal_manager_mobile_number",
+  "agreement_tenure"
  ],
  "fields": [
   {
@@ -140,11 +155,120 @@
    "fieldtype": "Select",
    "label": "Dealer Is Aware",
    "options": "Pending\nYes\nNo"
+  },
+  {
+   "default": "0",
+   "fieldname": "eligible_for_insurance",
+   "fieldtype": "Check",
+   "label": "Eligible For Insurance"
+  },
+  {
+   "fieldname": "sales_team_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Team"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "area_manager",
+   "fieldtype": "Link",
+   "label": "Area Manager",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "regional_manager",
+   "fieldtype": "Link",
+   "label": "Regional Manager",
+   "options": "Geo Mitra"
+  },
+  {
+   "fieldname": "zonal_manager",
+   "fieldtype": "Link",
+   "label": "Zonal Manager",
+   "options": "Geo Mitra"
+  },
+  {
+   "fetch_from": "sales_person.sales_person_name",
+   "fieldname": "sales_person_name",
+   "fieldtype": "Data",
+   "label": "Sales Person Name"
+  },
+  {
+   "fetch_from": "sales_person.mobile_number",
+   "fieldname": "sales_person_mobile_number",
+   "fieldtype": "Data",
+   "label": "Sales Person Mobile Number",
+   "options": "Phone"
+  },
+  {
+   "fetch_from": "area_manager.sales_person_name",
+   "fieldname": "area_manager_name",
+   "fieldtype": "Data",
+   "label": "Area Manager Name"
+  },
+  {
+   "fetch_from": "area_manager.mobile_number",
+   "fieldname": "area_manager_mobile_number",
+   "fieldtype": "Data",
+   "label": "Area Manager Mobile Number",
+   "options": "Phone"
+  },
+  {
+   "fetch_from": "regional_manager.sales_person_name",
+   "fieldname": "regional_manager_name",
+   "fieldtype": "Data",
+   "label": "Regional Manager Name"
+  },
+  {
+   "fetch_from": "regional_manager.mobile_number",
+   "fieldname": "regional_manager_mobile_number",
+   "fieldtype": "Data",
+   "label": "Regional Manager Mobile Number",
+   "options": "Phone"
+  },
+  {
+   "fetch_from": "zonal_manager.sales_person_name",
+   "fieldname": "zonal_manager_name",
+   "fieldtype": "Data",
+   "label": "Zonal Manager Name"
+  },
+  {
+   "fetch_from": "zonal_manager.mobile_number",
+   "fieldname": "zonal_manager_mobile_number",
+   "fieldtype": "Data",
+   "label": "Zonal Manager Mobile Number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "agreement_tenure",
+   "fieldtype": "Data",
+   "label": "Agreement Tenure"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2026-01-30 18:09:43.790497",
+ "links": [
+  {
+   "link_doctype": "Dealer Insurance Form",
+   "link_fieldname": "customer_code"
+  },
+  {
+   "link_doctype": "Daily Activity",
+   "link_fieldname": "dealer"
+  },
+  {
+   "link_doctype": "GEO Orders",
+   "link_fieldname": "dealer"
+  },
+  {
+   "link_doctype": "Dealer Stock",
+   "link_fieldname": "dealer"
+  }
+ ],
+ "modified": "2026-06-10 17:48:16.049974",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Dealer",

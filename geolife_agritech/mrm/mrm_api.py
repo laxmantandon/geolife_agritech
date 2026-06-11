@@ -71,10 +71,7 @@ def custom_enqueue(doc_name):
 
 	return {"status":"success"}
 
-
-@frappe.whitelist()
-def mrm_api_dealer_target():
-	data = frappe.request.json
+def enqueue_mrm_api_dealer_target(data):
 	result = data.get("result")
 	frappe.log_error("MY Result",result)
 	report_result = frappe.new_doc("Dealer Monthly Target Report Data")
@@ -84,9 +81,29 @@ def mrm_api_dealer_target():
 		if report_result.name:
 			doc_name = report_result.name
 			custom_enqueue(doc_name)
-			
 	except:
 		frappe.log_error("Error In Import Report data Queue")
+
+
+
+@frappe.whitelist()
+def mrm_api_dealer_target():
+	# clear_dealer_monthly_target()
+
+	data = frappe.request.json
+	frappe.enqueue(enqueue_mrm_api_dealer_target, queue='long', data=data)
+	# result = data.get("result")
+	# frappe.log_error("MY Result",result)
+	# report_result = frappe.new_doc("Dealer Monthly Target Report Data")
+	# report_result.api_report_data = json.dumps(result)
+	# try:
+	# 	report_result.insert(ignore_permissions=True, ignore_links=True, ignore_if_duplicate=True, ignore_mandatory=True)
+	# 	if report_result.name:
+	# 		doc_name = report_result.name
+	# 		custom_enqueue(doc_name)
+			
+	# except:
+	# 	frappe.log_error("Error In Import Report data Queue")
 
 
 

@@ -16,7 +16,8 @@
   "session",
   "course",
   "qanda",
-  "shareable"
+  "shareable",
+  "status"
  ],
  "fields": [
   {
@@ -86,11 +87,18 @@
    "fieldname": "shareable",
    "fieldtype": "Check",
    "label": "Shareable"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nActive\nDisabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-27 15:20:12.227768",
+ "modified": "2026-04-03 12:20:58.154618",
  "modified_by": "Administrator",
  "module": "My Training",
  "name": "Training Videos",

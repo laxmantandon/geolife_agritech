@@ -94,9 +94,10 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-#	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Notification": "geolife_agritech.overrides.notification.SendNotification"
+
+}
 
 # Document Events
 # ---------------
@@ -195,5 +196,15 @@ scheduler_events = {
 #	"geolife_agritech.auth.validate"
 # ]
 
-fixtures = ["Custom Field"]
+fixtures = ["Custom Field",
+    {
+		"dt": "Property Setter",
+		"filters": [
+			[
+				"name", "in", [
+					"Notification-channel-options"
+				]
+			]
+		]
+	}]
 

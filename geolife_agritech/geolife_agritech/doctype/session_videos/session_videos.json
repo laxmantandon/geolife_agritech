@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "youtube_video",
+  "video_link",
   "session_date",
   "faq",
   "amended_from"
@@ -37,11 +38,16 @@
    "options": "Session Videos",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "video_link",
+   "fieldtype": "Data",
+   "label": "Video Link"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-30 18:09:50.013874",
+ "modified": "2026-05-27 19:11:31.449922",
  "modified_by": "Administrator",
  "module": "Geolife Agritech",
  "name": "Session Videos",

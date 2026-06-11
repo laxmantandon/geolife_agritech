@@ -10,7 +10,9 @@
   "session_name",
   "descriptions",
   "course",
-  "total_time"
+  "total_time",
+  "status",
+  "scquence_id"
  ],
  "fields": [
   {
@@ -39,6 +41,18 @@
    "in_list_view": 1,
    "label": "Session Name",
    "reqd": 1
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nActive\nDisabled"
+  },
+  {
+   "fieldname": "scquence_id",
+   "fieldtype": "Int",
+   "label": "Scquence Id"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -48,7 +62,7 @@
    "link_fieldname": "session"
   }
  ],
- "modified": "2024-11-28 17:25:53.042048",
+ "modified": "2026-03-02 11:40:44.627050",
  "modified_by": "Administrator",
  "module": "My Training",
  "name": "Training Session",
